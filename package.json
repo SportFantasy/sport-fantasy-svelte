@@ -7,7 +7,10 @@
     "@storybook/addon-links": "^5.2.6",
     "@storybook/addons": "^5.2.6",
     "@storybook/svelte": "^5.2.6",
+    "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
+    "jest": "^24.9.0",
+    "jest-transform-stub": "^2.0.0",
     "rollup": "1.27.4",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-livereload": "1.0.4",
@@ -18,6 +21,7 @@
     "svelte-loader": "^2.13.6"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.7.4",
     "sirv-cli": "0.4.5",
     "svelte-spa-router": "2.0.0"
   },
@@ -26,6 +30,7 @@
     "dev": "rollup -c -w",
     "start": "sirv public",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "test": "jest --config=jest.config.js"
   }
 }
