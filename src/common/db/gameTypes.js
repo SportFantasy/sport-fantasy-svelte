@@ -8,6 +8,7 @@ const _processRaw = (raw) => {
       const data = doc.data()
       result[doc.id] = {
         ...data,
+        id: doc.id,
       }
   });
 

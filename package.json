@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@babel/preset-env": "7.7.4",
+    "lodash": "4.17.15",
     "sirv-cli": "0.4.5",
     "svelte-spa-router": "2.0.0"
   },

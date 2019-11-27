@@ -1,3 +1,6 @@
+import _filter from 'lodash/filter'
+
+
 export const addUsersToGames = (games, users) => {
   let enhancedGames = {}
 
@@ -67,7 +70,6 @@ export const addGameTypesToGames = (games, gameTypes) => {
     }
 
     delete enhancedGame.gametype
-    delete enhancedGame.gameTypeId
 
     enhancedGames = {
       ...enhancedGames,
@@ -76,4 +78,22 @@ export const addGameTypesToGames = (games, gameTypes) => {
   }
 
   return enhancedGames
+}
+
+export const getGamesByGameTypeId = (games, gameTypeId) => {
+
+  if (!gameTypeId) {
+    return games
+  }
+
+  let filteredGames = {}
+
+  const foundGames = _filter(games, {gameTypeId})
+  if (foundGames && foundGames.length) {
+    foundGames.forEach(foundGame => {
+      filteredGames[foundGame.id] = foundGame
+    })
+  }
+
+  return filteredGames
 }
