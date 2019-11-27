@@ -1,5 +1,7 @@
 <script>
 import { authStore } from '../auth.store'
+import { push } from 'svelte-spa-router'
+
 
 let email = ''
 let password = ''
@@ -11,7 +13,7 @@ const handleSubmit = (event) => {
   authStore.setAuthToken(authToken)
   authStore.setIsAuthenticated(true)
 
-  console.log($authStore)
+  push('/home')
 }
 </script>
 

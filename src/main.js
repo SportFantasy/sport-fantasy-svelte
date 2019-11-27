@@ -1,4 +1,4 @@
-import Root from './Root.svelte';
+import Root from './Root.svelte'
 
 
 const app = new Root({

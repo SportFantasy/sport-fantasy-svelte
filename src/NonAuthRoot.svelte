@@ -13,7 +13,6 @@
 
 <main class="global-main">
   <section>
-    <h2>NON AUTH</h2>
     <Router routes={NON_AUTH_APP_ROUTES} />
   </section>
 </main>
