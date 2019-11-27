@@ -3,14 +3,18 @@
   "version": "0.1.0",
   "devDependencies": {
     "@babel/core": "7.7.4",
+    "@babel/preset-env": "7.7.4",
     "@storybook/addon-actions": "5.2.6",
     "@storybook/addon-links": "5.2.6",
     "@storybook/addons": "5.2.6",
     "@storybook/svelte": "5.2.6",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/svelte": "^1.9.1",
     "babel-jest": "24.9.0",
     "babel-loader": "8.0.6",
     "jest": "24.9.0",
     "jest-transform-stub": "2.0.0",
+    "jest-transform-svelte": "2.1.0",
     "rollup": "1.27.4",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-json": "4.0.0",
@@ -22,8 +26,9 @@
     "svelte-loader": "2.13.6"
   },
   "dependencies": {
-    "@babel/preset-env": "7.7.4",
     "lodash": "4.17.15",
+    "svelte-loader": "2.13.6",
+    "svelte-testing-library": "1.6.0",
     "sirv-cli": "0.4.5",
     "svelte-spa-router": "2.0.0"
   },
