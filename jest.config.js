@@ -1,9 +1,14 @@
 module.exports = {
-  moduleFileExtensions: ['js', 'json'],
   transform: {
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$':
       'jest-transform-stub',
-    '^.+\\.(js|jsx)?$': 'babel-jest'
+      "^.+\\.svelte$": "jest-transform-svelte",
+      "^.+\\.js$": "babel-jest"
   },
-  transformIgnorePatterns: ['<rootDir>/node_modules/']
+  moduleFileExtensions: ["js", "svelte"],
+  testPathIgnorePatterns: ["node_modules"],
+  bail: false,
+  verbose: true,
+  transformIgnorePatterns: ["node_modules"],
+  setupFilesAfterEnv: ["@testing-library/jest-dom/extend-expect"]
 };
