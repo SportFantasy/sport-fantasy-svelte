@@ -29,7 +29,7 @@ export const getAllUsers = () => {
 }
 
 export const createUser = ({username, email}) => {
-  return db.collection("users").add({
+  return db.collection('users').add({
     username,
     email,
     createdAt: Date.now(),

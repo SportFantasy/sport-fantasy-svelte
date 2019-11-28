@@ -7,8 +7,6 @@ export let activeGameTypeId
 $: gameTypeArr = Object.values(gameTypes)
 
 const getActiveButtonClass = (currentButtonId, activeGameTypeId) => {
-  console.log(currentButtonId)
-  console.log(activeGameTypeId)
   return (currentButtonId === activeGameTypeId) ? 'active' : ''
 }
 

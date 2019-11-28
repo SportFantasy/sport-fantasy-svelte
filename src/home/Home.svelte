@@ -1,9 +1,10 @@
 <script>
-  import Router from 'svelte-spa-router'
+  import Router, { link } from 'svelte-spa-router'
   import { onMount } from 'svelte';
 
   import GameTypeSelector from './GameTypeSelector.svelte'
   import GameCard from './GameCard.svelte'
+  import SubmitGame from './SubmitGame.svelte'
 
   import { authStore } from '../auth/auth.store'
   import { gamesStore } from '../common/games.store'
@@ -17,6 +18,10 @@
     getGamesByGameTypeId,
   } from '../common/games.store.helper'
 
+  const prefix = '/home'
+  const routes = {
+    '/submit-game': SubmitGame,
+  }
 
   const getGamesData = () => Promise.all([
     getAllUsers(), getAllGameTypes(), getAllGames(),
@@ -47,6 +52,8 @@
 
 <h1 class="main-header">Home</h1>
 
+<a href="/home/submit-game" use:link>Submit Game</a>
+
 <GameTypeSelector gameTypes={$gamesStore.gameTypes} activeGameTypeId={selectedGameTypeId} />
 
 <section>
@@ -54,6 +61,8 @@
     <GameCard {game} />
   {/each}
 </section>
+
+<Router {routes} {prefix} />
 
 <style>
 section {

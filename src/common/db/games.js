@@ -23,3 +23,25 @@ export const getAllGames = () => {
     .get()
     .then(_processRaw);
 }
+
+export const createNewGame = ({
+  gameTypeId,
+  player1Id,
+  player2Id,
+  player1Score = null,
+  player2Score = null,
+  datePlayed = Date.now(),
+  isConfirmedPlayer1 = false,
+  isConfirmedPlayer2 = false,
+}) => {
+  return db.collection('games').add({
+    gameTypeId,
+    player1Id,
+    player2Id,
+    player1Score,
+    player2Score,
+    datePlayed,
+    isConfirmedPlayer1,
+    isConfirmedPlayer2,
+  })
+}
