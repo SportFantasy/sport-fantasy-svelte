@@ -10,9 +10,6 @@
     {#if isAuthenticated}
     <li><a use:link href="/">/</a></li>
     <li><a use:link href="/home">Home</a></li>
-    <li><a use:link href="/home/1">Home #1</a></li>
-    <li><a use:link href="/home/50">Home #50</a></li>
-    <li><a use:link href="/home/25/300">Home #25 #300</a></li>
     <li><a use:link href="/nest">Nest</a></li>
     <li><a use:link href="/nest/first">Nest #First</a></li>
     {:else}
