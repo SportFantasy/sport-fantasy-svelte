@@ -24,16 +24,16 @@
     return imgSrc;
   };
   const getLink = currentGame => {
-    let routeString = "/home";
+    let routeString = "";
     switch (currentGame.name) {
       case "fifa 2019":
-        routeString = `/home/${currentGame.id}`;
+        routeString = `/games/${currentGame.id}`;
         break;
       case "stoni tenis":
-        routeString = `/home/${currentGame.id}`;
+        routeString = `/games/${currentGame.id}`;
         break;
       case "sah":
-        routeString = `/home/${currentGame.id}`;
+        routeString = `/games/${currentGame.id}`;
     }
     return routeString;
   };
