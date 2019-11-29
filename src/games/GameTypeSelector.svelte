@@ -8,7 +8,10 @@
   $: gameTypeArr = Object.values(gameTypes);
   const getImageSrc = (currentGame, activeGameTypeId) => {
     let imgSrc = "";
-    switch (currentGame.name) {
+    let gameName = !(currentGame && currentGame.name)
+      ? "all"
+      : currentGame.name;
+    switch (gameName) {
       case "fifa 2019":
         imgSrc = "images/football-icon.png";
         break;
@@ -19,13 +22,19 @@
         imgSrc = "images/chess.png";
         break;
       default:
-        imgSrc = "images/football-icon.png";
+        imgSrc = "images/trophy.png";
     }
     return imgSrc;
   };
   const getLink = currentGame => {
+    let gameName = !(currentGame && currentGame.name)
+      ? "all"
+      : currentGame.name;
     let routeString = "";
-    switch (currentGame.name) {
+    switch (gameName) {
+      case "all":
+        routeString = `/games/${gameName}`;
+        break;
       case "fifa 2019":
         routeString = `/games/${currentGame.id}`;
         break;
@@ -34,13 +43,17 @@
         break;
       case "sah":
         routeString = `/games/${currentGame.id}`;
+        break;
+      default:
+        routeString = `/games`;
     }
     return routeString;
   };
   const getActiveButtonClass = (currentGame, activeGameTypeId) => {
+    let gameId = !(currentGame && currentGame.id) ? "all" : currentGame.id;
     let classes = "game-card";
     let isActive =
-      currentGame.id === activeGameTypeId ? classes.concat(" active") : classes;
+      gameId === activeGameTypeId ? classes.concat(" active") : classes;
     return classes;
   };
 </script>
@@ -63,6 +76,9 @@
 
 <div class="game-selector-wrapper justify-content-space-around flex-row">
   <div class="w-30 justify-content-space-around flex-row">
+    <a use:link href={getLink()} class={getActiveButtonClass(undefined, 'all')}>
+      <img src={getImageSrc(undefined, 'all')} alt="sport image" />
+    </a>
     {#each gameTypeArr as gameType}
       <a
         use:link

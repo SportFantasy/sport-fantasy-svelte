@@ -3,26 +3,31 @@
 
   export let isAuthenticated;
 </script>
+<style>
+.nav-wrapper {
+  padding-left: 10vw;
+}
+</style>
 
 <nav>
-  <div class="nav-wrapper">
+  <div class="nav-wrapper flex-column justify-content-space-around hv-5">
     <div class="container">
-      <ul id="nav-mobile" class="left hide-on-med-and-down">
+      <ul id="nav-mobile" class="left hide-on-med-and-down flex-row">
         {#if isAuthenticated}
-          <li>
+          <li class="p-10">
             <a use:link href="/">Home</a>
           </li>
-          <li>
+          <li class="p-10">
             <a use:link href="/games">Games</a>
           </li>
-          <li>
+          <li class="p-10">
             <a use:link href="/submit-game">Submit Game</a>
           </li>
-          <li>
+          <li class="p-10">
             <a use:link href="/user">User</a>
           </li>
         {:else}
-          <li>
+          <li class="p-10">
             <a use:link href="/login">Login</a>
           </li>
         {/if}

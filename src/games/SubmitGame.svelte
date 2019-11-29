@@ -5,11 +5,11 @@ import { usersStore } from '../common/stores/users.store'
 
 import DropDownSelector from '../common/DropDownSelector.svelte'
 
-let gameTypeId
-let player1Id
-let player2Id
-let player1Score
-let player2Score
+let gameTypeId;
+let player1Id;
+let player2Id;
+let player1Score;
+let player2Score;
 
 
 const handleSubmit = (event) => {

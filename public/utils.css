@@ -4,6 +4,9 @@
 .h-50 {
     height: 50%;
 }
+.hv-5 {
+    height: 5vh;
+}
 .w-100 {
 	width: 100%;
 }
@@ -13,8 +16,11 @@
 .w-30 {
     width: 30%;
 }
-.p-b-10{
+.p-b-10 {
     padding-bottom: 10vh;
+}
+.p-10 {
+    padding: 10px;
 }
 .flex-row {
 	display: flex;
@@ -40,7 +46,7 @@
     background-image: url('images/tennis-racket.png');
     background-size: contain;
 }
-.game-card{
+.game-card {
     height: 80px;
     width: auto;
     color: white;

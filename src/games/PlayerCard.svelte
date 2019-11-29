@@ -7,14 +7,13 @@ export let playerInfo={};
   box-shadow: none;
   max-width: 300px;
   text-align: center;
-  height: 35vh;
   background-color: transparent;
   padding-top: 50px;
 }
 
-.card img {
-  height: 40px;
-  width: 40px;
+.card h1 {
+  text-transform: uppercase;
+  padding-bottom: 10px;
 }
 
 .title {

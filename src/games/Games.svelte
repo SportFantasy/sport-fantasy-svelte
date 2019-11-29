@@ -26,13 +26,13 @@
   let gamesArrayList = [];
 
   const setGamesStore = ([users, gameTypes, games]) => {
-    console.log(games)
+    // console.log(games)
     const gamesWithUsers = addUsersToGames(games, users);
-    console.log(gamesWithUsers)
+    // console.log(gamesWithUsers)
     const gamesWithTypes = addGameTypesToGames(gamesWithUsers, gameTypes);
-    console.log(gamesWithTypes)
+    // console.log(gamesWithTypes)
     const gamesWithWinners = addResultAndWinnerToGames(gamesWithTypes);
-    console.log(gamesWithWinners)
+    // console.log(gamesWithWinners)
 
     usersStore.setUsers(users);
     gamesStore.setGameTypes(gameTypes);
@@ -46,11 +46,13 @@
   export let params = {};
 
   $: selectedGameTypeId = params.gameTypeId;
+  
 
   $: gamesArr = () => {
+    let selctedGameType = selectedGameTypeId !== 'all'? selectedGameTypeId : undefined;
     const filteredGames = getGamesByGameTypeId(
       $gamesStore.games,
-      selectedGameTypeId
+      selctedGameType
     );
     gamesArrayList = [...Object.values(filteredGames)];
     return gamesArrayList;
@@ -70,5 +72,5 @@
   activeGameTypeId={selectedGameTypeId} />
 
 <section class="h-100">
-  <Score games={gamesArr()} />
+  <Score games={gamesArr()} routeParams={params}/>
 </section>

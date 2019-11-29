@@ -1,6 +1,4 @@
 <script>
-  import "../node_modules/materialize-css/dist/css/materialize.min.css";
-
   import Router from 'svelte-spa-router'
 
   import AuthRoot from './AuthRoot.svelte'
