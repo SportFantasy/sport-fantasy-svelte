@@ -26,6 +26,9 @@
           <li class="p-10">
             <a use:link href="/user">User</a>
           </li>
+          <li>
+            <a use:link href="/logout">Log Out</a>
+          </li>
         {:else}
           <li class="p-10">
             <a use:link href="/login">Login</a>
