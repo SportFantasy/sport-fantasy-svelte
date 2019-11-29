@@ -10,7 +10,7 @@
       <ul id="nav-mobile" class="left hide-on-med-and-down">
         {#if isAuthenticated}
           <li>
-            <a use:link href="/home">Home</a>
+            <a use:link href="/">Home</a>
           </li>
           <li>
             <a use:link href="/games">Games</a>

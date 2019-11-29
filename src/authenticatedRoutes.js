@@ -9,7 +9,6 @@ const AUTH_APP_ROUTES = {
   '/games/:gameTypeId': Games,
   '/submit-game': SubmitGame,
   '/user' : User,
-  '*': Home,
 }
 
 export default AUTH_APP_ROUTES

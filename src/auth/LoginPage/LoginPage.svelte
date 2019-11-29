@@ -12,7 +12,7 @@ const handleSubmit = (event) => {
   const authToken = email + password
   authStore.login(authToken)
 
-  push('/home')
+  push('/')
 }
 </script>
 
@@ -35,7 +35,6 @@ const handleSubmit = (event) => {
     <button type="submit">Log in</button>
   </form>
   </div>
-
 
 </div>
 
