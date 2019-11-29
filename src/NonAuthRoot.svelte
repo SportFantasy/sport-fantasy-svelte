@@ -8,11 +8,6 @@
   import { authStore } from './auth/auth.store'
 </script>
 
-<!-- <TopNavigation isAuthenticated={$authStore.isAuthenticated} /> -->
-<Navbar isAuthenticated={$authStore.isAuthenticated}/>
-
-
-<!-- <Welcome name="Test User" /> -->
 
 <main class="global-main h-100">
   <section class="h-100">

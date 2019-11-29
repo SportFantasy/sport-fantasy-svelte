@@ -10,8 +10,6 @@ let player2Id
 let player1Score
 let player2Score
 
-console.log($gamesStore.users)
-console.log($gamesStore.gameTypes)
 
 const handleSubmit = (event) => {
   event.preventDefault()

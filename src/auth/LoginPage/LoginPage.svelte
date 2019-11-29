@@ -17,7 +17,10 @@ const handleSubmit = (event) => {
 }
 </script>
 
+<img src="images/football-icon.png" class="flex-row" />
+
 <div class="login-page h-100 justify-content-space-around flex-row">
+
   <div class='flex-column justify-content-space-around h-100 p-b-10'>
   <form on:submit={handleSubmit} >
     <label>
@@ -43,5 +46,8 @@ const handleSubmit = (event) => {
   min-width: 300px;
   margin: auto;
 }
-
+img {
+  display: block;
+  margin: auto;
+}
 </style>

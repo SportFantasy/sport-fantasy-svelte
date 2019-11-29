@@ -29,9 +29,6 @@
           </li>
         {:else}
           <li>
-            <a use:link href="/">/</a>
-          </li>
-          <li>
             <a use:link href="/login">Login</a>
           </li>
         {/if}
