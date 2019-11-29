@@ -1,6 +1,5 @@
 import Home from './home/Home.svelte';
 import SubmitGame from './home/SubmitGame.svelte';
-import Nest from './nest/Nest.svelte';
 import User from './common/User.svelte'
 
 const AUTH_APP_ROUTES = {
@@ -8,8 +7,6 @@ const AUTH_APP_ROUTES = {
   '/home': Home,
   '/home/:gameTypeId': Home,
   '/submit-game': SubmitGame,
-  '/nest': Nest,
-  '/nest/*': Nest,
   '/user' : User,
   '*': Home,
 }

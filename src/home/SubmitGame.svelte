@@ -1,6 +1,6 @@
 <script>
 import { createNewGame } from '../common/db/games'
-import { gamesStore } from '../common/games.store'
+import { gamesStore } from '../common/stores/games.store'
 
 import DropDownSelector from '../common/DropDownSelector.svelte'
 

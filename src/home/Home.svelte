@@ -7,7 +7,7 @@
   import Score from "./Score.svelte";
 
   import { authStore } from "../auth/auth.store";
-  import { gamesStore } from "../common/games.store";
+  import { gamesStore } from "../common/stores/games.store";
 
   import { getAllUsers } from "../common/db/users.js";
   import { getAllGames } from "../common/db/games.js";
@@ -16,7 +16,7 @@
     addUsersToGames,
     addGameTypesToGames,
     getGamesByGameTypeId
-  } from "../common/games.store.helper";
+  } from "../common/stores/games.store.helper";
 
   const getGamesData = () =>
     Promise.all([getAllUsers(), getAllGameTypes(), getAllGames()]);
