@@ -1,14 +1,6 @@
 import db from './db.js'
 
 
-const _getCreatedAtTimestamp = (rawCreatedAt) => {
-  try {
-    return new Date(rawCreatedAt)
-  } catch (error) {
-    console.log(error)
-    return rawCreatedAt
-  }
-}
 const _processRawUsers = (rawUsers) => {
   let users = {}
   rawUsers.forEach((doc) => {
@@ -16,7 +8,6 @@ const _processRawUsers = (rawUsers) => {
       users[doc.id] = {
         ...data,
         id: doc.id,
-        createdAt: _getCreatedAtTimestamp(data.createdAt)
       }
   });
 

@@ -16,7 +16,8 @@
   import {
     addUsersToGames,
     addGameTypesToGames,
-    getGamesByGameTypeId
+    getGamesByGameTypeId,
+    addResultAndWinnerToGames,
   } from "../common/stores/games.store.helper";
 
   const getGamesData = () =>
@@ -25,12 +26,17 @@
   let gamesArrayList = [];
 
   const setGamesStore = ([users, gameTypes, games]) => {
+    console.log(games)
     const gamesWithUsers = addUsersToGames(games, users);
+    console.log(gamesWithUsers)
     const gamesWithTypes = addGameTypesToGames(gamesWithUsers, gameTypes);
+    console.log(gamesWithTypes)
+    const gamesWithWinners = addResultAndWinnerToGames(gamesWithTypes);
+    console.log(gamesWithWinners)
 
     usersStore.setUsers(users);
     gamesStore.setGameTypes(gameTypes);
-    gamesStore.setGames(gamesWithTypes);
+    gamesStore.setGames(gamesWithWinners);
   };
 
   onMount(() => {

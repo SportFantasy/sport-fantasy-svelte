@@ -36,18 +36,6 @@
     padding-bottom: 40px;
   }
 
-  /* .player-involved {
-    display: block;
-  }
-  .player-involved:nth-child(even) {
-    float: left;
-    clear: left;
-  }
-  .player-involved:nth-child(odd) {
-    clear: right;
-    float: right;
-  } */
-
   .score-card {
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
     background: white;
@@ -65,14 +53,10 @@
     </div>
     <PlayerCard playerInfo={game.player2} />
   </div>
-  <div class="text-align-center f-s-40">Score</div>
-  <div class="text-align-center f-s-40">{game.result}</div>
+  <div class="text-align-center f-s-40">Score {game.player1Score} : {game.player2Score}</div>
+  {#if game.winner}
   <div class="player player--winner text-align-center f-s-40">Winner: {game.winner.username}</div>
+  {:else}
+  <div class="player player--winner text-align-center f-s-40">Result: {game.result}</div>
+  {/if}
 </div>
-<!-- <p class="player player--winner">Winner: {game.winner.username}</p>
-  <p>Score: {game.result}</p>
-
-  <div class="players">
-    <p class="player-involved">Player 1: {game.player1.username}</p>
-    <p class="player-involved">Player 2: {game.player2.username}</p>
-  </div> -->

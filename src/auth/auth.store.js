@@ -2,8 +2,8 @@ import { writable } from 'svelte/store'
 
 
 const INITIAL_STORE = {
-    isAuthenticated: false,
-    authToken: '',
+    isAuthenticated: true,
+    authToken: '1232313',
 }
 
 const createStore = () => {

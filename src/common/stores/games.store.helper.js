@@ -34,17 +34,9 @@ export const addUsersToGames = (games, users) => {
       ...game,
       player1,
       player2,
-      winner,
     }
 
-    delete enhancedGame.player1Id
-    delete enhancedGame.player2Id
-    delete enhancedGame.winnerId
-
-    enhancedGames = {
-      ...enhancedGames,
-      [gameId]: enhancedGame,
-    }
+    enhancedGames[gameId] = enhancedGame
   }
 
   return enhancedGames
@@ -69,11 +61,46 @@ export const addGameTypesToGames = (games, gameTypes) => {
       gameType,
     }
 
-    delete enhancedGame.gametype
+    enhancedGames[gameId]= enhancedGame
+  }
 
-    enhancedGames = {
-      ...enhancedGames,
-      [gameId]: enhancedGame,
+  return enhancedGames
+}
+
+const _getResultFromGame = (game) => {
+  let result
+  if(game.player1Score > game.player2Score) {
+    result = 'victory'
+  } else if (game.player1Score === game.player2Score) {
+    result = 'draw'
+  } else {
+    result = 'victory'
+  }
+  return result
+}
+
+const _getWinnerFromGame = (game) => {
+  let winner
+  if(game.player1Score > game.player2Score) {
+    winner = game.player1
+  } else if (game.player1Score === game.player2Score) {
+    winner = null
+  } else {
+    winner = game.player2
+  }
+  return winner
+}
+
+export const addResultAndWinnerToGames = (games) => {
+  let enhancedGames = {}
+
+  for (let gameId in games) {
+    const game = games[gameId]
+
+    enhancedGames[game.id] = {
+      ...game,
+      result: _getResultFromGame(game),
+      winner: _getWinnerFromGame(game),
     }
   }
 

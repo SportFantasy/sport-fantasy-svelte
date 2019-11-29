@@ -6,12 +6,10 @@ const _processRaw = (raw) => {
 
   raw.forEach((doc) => {
       const data = doc.data()
+      console.log(data)
       result[doc.id] = {
         ...data,
         id: doc.id,
-        gameTypeId: data.gametype.id,
-        player1Id: data.player1.id,
-        player2Id: data.player2.id,
       }
   });
 
