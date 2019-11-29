@@ -1,6 +1,7 @@
 <script>
 import { createNewGame } from '../common/db/games'
 import { gamesStore } from '../common/stores/games.store'
+import { usersStore } from '../common/stores/users.store'
 
 import DropDownSelector from '../common/DropDownSelector.svelte'
 
@@ -42,20 +43,17 @@ const getUsersArrayForDD = (users) => {
 }
 
 const handlePlayer1DDClick = ({value}) => {
-  console.log(value)
   player1Id = value
 }
 const handlePlayer2DDClick = ({value}) => {
-  console.log(value)
   player2Id = value
 }
 
 const handleGameTypeDDClick = ({value}) => {
-  console.log(value)
   gameTypeId = value
 }
 
-$: usersForDd = getUsersArrayForDD($gamesStore.users)
+$: usersForDd = getUsersArrayForDD($usersStore)
 </script>
 
 <h1>Submit Game</h1>

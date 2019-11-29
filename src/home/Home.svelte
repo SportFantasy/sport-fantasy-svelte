@@ -8,6 +8,7 @@
 
   import { authStore } from "../auth/auth.store";
   import { gamesStore } from "../common/stores/games.store";
+  import { usersStore } from "../common/stores/users.store";
 
   import { getAllUsers } from "../common/db/users.js";
   import { getAllGames } from "../common/db/games.js";
@@ -27,7 +28,7 @@
     const gamesWithUsers = addUsersToGames(games, users);
     const gamesWithTypes = addGameTypesToGames(gamesWithUsers, gameTypes);
 
-    gamesStore.setUsers(users);
+    usersStore.setUsers(users);
     gamesStore.setGameTypes(gameTypes);
     gamesStore.setGames(gamesWithTypes);
   };

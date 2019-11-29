@@ -3,7 +3,6 @@ import { writable } from 'svelte/store'
 
 const INITIAL_STORE = {
   gameTypes: {},
-  users: {},
   games: {},
 }
 
@@ -24,12 +23,6 @@ const createGamesStore = () => {
               games,
             }))
         },
-        setUsers: (users) => {
-            store.update((currentData) => ({
-              ...currentData,
-              users,
-            }))
-        }
     }
 }
 
