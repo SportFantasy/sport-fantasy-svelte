@@ -9,8 +9,6 @@ const _processRaw = (raw) => {
         ...data,
         id: doc.id,
       }
-      console.log('test ',result)
-
   });
 
   return result

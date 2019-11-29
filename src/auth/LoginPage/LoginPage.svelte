@@ -10,8 +10,7 @@ const handleSubmit = (event) => {
   event.preventDefault()
 
   const authToken = email + password
-  authStore.setAuthToken(authToken)
-  authStore.setIsAuthenticated(true)
+  authStore.login(authToken)
 
   push('/home')
 }

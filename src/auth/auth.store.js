@@ -9,24 +9,17 @@ const INITIAL_STORE = {
 const createStore = () => {
     const store = writable(INITIAL_STORE)
 
-    const setAuthToken = (newAuthToken) => {
+    const login = (newAuthToken) => {
       store.update((storeData) => ({
         ...storeData,
         authToken: newAuthToken,
-      }))
-    }
-
-    const setIsAuthenticated = (newIsAuthenticated) => {
-      store.update((storeData) => ({
-        ...storeData,
-        isAuthenticated: newIsAuthenticated,
+        isAuthenticated: true,
       }))
     }
 
     return {
         subscribe: store.subscribe,
-        setIsAuthenticated,
-        setAuthToken,
+        login,
     }
 }
 

@@ -9,10 +9,8 @@
   import { authStore } from './auth/auth.store'
 </script>
 
-<!-- <TopNavigation isAuthenticated={$authStore.isAuthenticated} /> -->
-<Navbar isAuthenticated={$authStore.isAuthenticated} />
 
-<!-- <Welcome name="Test User" /> -->
+<Navbar isAuthenticated={$authStore.isAuthenticated} />
 
 <main class="global-main">
   <section>
