@@ -13,6 +13,9 @@
             <a use:link href="/home">Home</a>
           </li>
           <li>
+            <a use:link href="/games">Games</a>
+          </li>
+          <li>
             <a use:link href="/submit-game">Submit Game</a>
           </li>
           <li>

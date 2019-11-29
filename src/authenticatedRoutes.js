@@ -1,11 +1,12 @@
 import Home from './home/Home.svelte';
-import SubmitGame from './home/SubmitGame.svelte';
+import Games from './games/Games.svelte';
+import SubmitGame from './games/SubmitGame.svelte';
 import User from './common/User.svelte'
 
 const AUTH_APP_ROUTES = {
   '/': Home,
-  '/home': Home,
-  '/home/:gameTypeId': Home,
+  '/games': Games,
+  '/games/:gameTypeId': Games,
   '/submit-game': SubmitGame,
   '/user' : User,
   '*': Home,

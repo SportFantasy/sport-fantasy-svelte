@@ -1,5 +1,5 @@
 <script>
-  import PlayerCard from "../home/PlayerCard.svelte";
+  import PlayerCard from "../games/PlayerCard.svelte";
 </script>
 
 <div class="flex-row justify-content-space-around">
