@@ -17,9 +17,9 @@ const handleSubmit = (event) => {
 }
 </script>
 
-<div class="login-page">
-
-  <form on:submit={handleSubmit}>
+<div class="login-page h-100 justify-content-space-around flex-row">
+  <div class='flex-column justify-content-space-around h-100 p-b-10'>
+  <form on:submit={handleSubmit} >
     <label>
       <span>Email:</span>
       <input type="text" required bind:value={email} />
@@ -32,6 +32,8 @@ const handleSubmit = (event) => {
 
     <button type="submit">Log in</button>
   </form>
+  </div>
+
 
 </div>
 
