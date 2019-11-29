@@ -8,12 +8,11 @@ const createUsersStore = () => {
 
     return {
         subscribe: store.subscribe,
-
         setUsers: (users) => {
             store.update((currentData) => ({
               ...users,
             }))
-        }
+        },
     }
 }
 

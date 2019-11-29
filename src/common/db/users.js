@@ -15,6 +15,7 @@ const _processRawUsers = (rawUsers) => {
       const data = doc.data()
       users[doc.id] = {
         ...data,
+        id: doc.id,
         createdAt: _getCreatedAtTimestamp(data.createdAt)
       }
   });
