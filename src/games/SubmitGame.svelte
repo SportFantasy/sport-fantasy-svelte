@@ -2,8 +2,10 @@
 import { createNewGame } from '../common/db/games'
 import { gamesStore } from '../common/stores/games.store'
 import { usersStore } from '../common/stores/users.store'
+import { getUnixTimeStampFromDate } from '../util/time.helper'
 
 import DropDownSelector from '../common/DropDownSelector.svelte'
+import Datepicker from 'svelte-calendar'
 
 let gameTypeId;
 let player1Id;
@@ -12,8 +14,13 @@ let player1Score;
 let player2Score;
 
 
+const datepickerFormat = '#{d}/#{m}/#{Y}'
+let selectedDate
+
+
 const handleSubmit = (event) => {
   event.preventDefault()
+  const datePlayed = getUnixTimeStampFromDate(selectedDate)
 
   createNewGame({
     gameTypeId,
@@ -21,6 +28,7 @@ const handleSubmit = (event) => {
     player2Id,
     player1Score,
     player2Score,
+    datePlayed,
   })
     .then(console.log)
     .catch(console.log)
@@ -99,6 +107,16 @@ $: usersForDd = getUsersArrayForDD($usersStore)
     <label>
       <span>Player 2 score:</span>
       <input type="number" bind:value={player2Score} />
+    </label>
+
+    <label>
+      <span>Date played:</span>
+      <div class="form-value">
+        <Datepicker
+          bind:selected={selectedDate}
+          format={datepickerFormat}
+         />
+      </div>
     </label>
 
     <button type="submit">Submit</button>
