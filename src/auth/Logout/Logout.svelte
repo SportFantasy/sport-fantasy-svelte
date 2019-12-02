@@ -2,7 +2,7 @@
 import { push } from 'svelte-spa-router'
 import { authStore } from '../auth.store'
 import { clearUserLoginData } from '../auth.helper'
-import { NON_AUTH_ROUTES } from '../../nonAuthenticatedRoutes'
+import { NON_AUTH_ROUTES } from '../auth.consts'
 
 
 const handleLogoutButtonClick = () => {

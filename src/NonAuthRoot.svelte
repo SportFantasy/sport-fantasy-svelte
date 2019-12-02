@@ -4,7 +4,7 @@
   import { authStore } from './auth/auth.store'
   import { persistUserLoginData, getPersistedUserLoginData, loginGoogleUser } from './auth/auth.helper'
 
-  import NON_AUTH_APP_ROUTES from './nonAuthenticatedRoutes'
+  import NON_AUTH_APP_ROUTES from './auth/nonAuthenticatedRoutes'
   import Spinner from './common/Spinner.svelte'
 
 

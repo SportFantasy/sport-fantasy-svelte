@@ -1,10 +1,10 @@
 <script>
   // redirects to "/login" if route is invalid
-  
+
   import { onMount, onDestroy } from 'svelte'
   import { location, push } from 'svelte-spa-router'
   import _filter from 'lodash/filter'
-  import { NON_AUTH_ROUTES } from '../nonAuthenticatedRoutes'
+  import { NON_AUTH_ROUTES } from '../auth/auth.consts'
 
 
   let unsubscribeLocationChangeHandler
