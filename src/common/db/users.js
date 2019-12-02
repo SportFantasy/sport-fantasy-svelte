@@ -20,10 +20,27 @@ export const getAllUsers = () => {
     .then(_processRawUsers);
 }
 
-export const createUser = ({username, email}) => {
-  return db.collection('users').add({
-    username,
+export const getUserById = (id) => {
+  return db.collection('users').doc(id).get()
+    .then( (userDocument) => {
+      if (userDocument.exists) {
+        return userDocument.data()
+      }
+      throw Error('No user')
+    })
+}
+
+export const createUserById = ({id, displayName, email}) => {
+  return db.collection('users').doc(id).set({
+    displayName,
     email,
     createdAt: Date.now(),
+    lastLoginAt: Date.now(),
   })
+}
+
+export const updateUsersLastLoginTimeById = (id) => {
+  return db.collection('users').doc(id).set({
+    lastLoginAt: Date.now(),
+  }, { merge: true })
 }

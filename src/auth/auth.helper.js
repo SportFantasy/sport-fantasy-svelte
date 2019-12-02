@@ -1,3 +1,5 @@
+import { getUserById, createUserById } from '../common/db/users'
+
 const LOCAL_STORAGE_USER_DATA_KEY = 'LOGGED_USER'
 
 
@@ -21,7 +23,7 @@ export const getPersistedUserLoginData = () => {
   return null
 }
 
-export const loginGoogleUser = (googleData, cb) => {
+export const getUserDataFromGoogleUser = (googleData) => {
   const token = googleData.credential.oauthIdToken || googleData.credential.idToken
   const loggedUser = {
     uid: googleData.user.uid,
@@ -32,6 +34,16 @@ export const loginGoogleUser = (googleData, cb) => {
     credential: googleData.credential,
   }
 
-  persistUserLoginData(loggedUser)
-  cb(token, loggedUser)
+  return loggedUser
+}
+
+export const getAndCreateUserById = ({id, email, displayName}) => {
+  return getUserById(id)
+    .catch((error) => {
+      return createUserById({
+        id,
+        email,
+        displayName,
+      })
+    })
 }

@@ -4,7 +4,13 @@ import { authStore } from '../auth.store'
 import { push } from 'svelte-spa-router'
 
 import Spinner from '../../common/Spinner.svelte'
-import { persistUserLoginData, getPersistedUserLoginData, loginGoogleUser } from '../auth.helper'
+import {
+  persistUserLoginData,
+  getPersistedUserLoginData,
+  getAndCreateUserById,
+  getUserDataFromGoogleUser,
+} from '../auth.helper'
+import { updateUsersLastLoginTimeById } from '../../common/db/users'
 
 let errorMessage = ''
 $: isSpinnerVisible = $authStore.isAuthInProgress
@@ -13,8 +19,24 @@ const googleSignInWithPopup = () => {
   errorMessage = ''
   const provider = new firebase.auth.GoogleAuthProvider();
   return firebase.auth().signInWithPopup(provider)
-    .then( (googleUserData) => loginGoogleUser(googleUserData, authStore.login) )
-    .then( () => push('/') )
+    .then( (googleUserData) => getUserDataFromGoogleUser(googleUserData) )
+    .then( (userData) => {
+      persistUserLoginData(userData)
+      authStore.setLoggedUser(userData)
+    })
+    .then( () => {
+      return getAndCreateUserById({
+        id: $authStore.loggedUser.uid,
+        email: $authStore.loggedUser.email,
+        displayName: $authStore.loggedUser.displayName,
+      })
+    })
+    .then( () => updateUsersLastLoginTimeById($authStore.loggedUser.uid) )
+    .then( () => {
+      authStore.setIsAuthenticated(true)
+      authStore.setIsAuthInProgress(false)
+      push('/')
+    })
     .catch( (error) => errorMessage = error.message )
 }
 

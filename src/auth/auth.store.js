@@ -21,6 +21,20 @@ const createStore = () => {
       }))
     }
 
+    const setLoggedUser = (newUser) => {
+      store.update((storeData) => ({
+        ...storeData,
+        loggedUser: newUser,
+      }))
+    }
+
+    const setIsAuthenticated = (newIsAuthenticated) => {
+      store.update((storeData) => ({
+        ...storeData,
+        isAuthenticated: newIsAuthenticated,
+      }))
+    }
+
     const logout = () => {
       store.update((storeData) => ({
         ...INITIAL_STORE,
@@ -36,6 +50,8 @@ const createStore = () => {
 
     return {
         subscribe: store.subscribe,
+        setLoggedUser,
+        setIsAuthenticated,
         setIsAuthInProgress,
         logout,
         login,
