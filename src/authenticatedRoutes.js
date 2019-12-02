@@ -4,7 +4,7 @@ import SubmitGame from './games/SubmitGame.svelte'
 import User from './common/User.svelte'
 import Logout from './auth/Logout/Logout.svelte'
 
-const AUTH_APP_ROUTES = {
+const AUTH_ROUTER_CONFIG = {
   '/': Home,
   '/games': Games,
   '/games/:gameTypeId': Games,
@@ -13,4 +13,4 @@ const AUTH_APP_ROUTES = {
   '/logout' : Logout,
 }
 
-export default AUTH_APP_ROUTES
+export default AUTH_ROUTER_CONFIG

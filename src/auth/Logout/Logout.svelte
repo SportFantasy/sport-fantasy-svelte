@@ -2,12 +2,13 @@
 import { push } from 'svelte-spa-router'
 import { authStore } from '../auth.store'
 import { clearUserLoginData } from '../auth.helper'
+import { NON_AUTH_ROUTES } from '../../nonAuthenticatedRoutes'
 
 
 const handleLogoutButtonClick = () => {
   clearUserLoginData()
   authStore.logout()
-  push('/login/manual')
+  push(NON_AUTH_ROUTES.LOGIN)
 }
 </script>
 

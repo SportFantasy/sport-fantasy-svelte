@@ -2,6 +2,7 @@ import { writable } from 'svelte/store'
 
 
 const INITIAL_STORE = {
+    isAuthInProgress: false,
     isAuthenticated: false,
     authToken: '',
     loggedUser: null,
@@ -26,8 +27,16 @@ const createStore = () => {
       }))
     }
 
+    const setIsAuthInProgress = (newIsAuthInProgress) => {
+      store.update((storeData) => ({
+        ...storeData,
+        isAuthInProgress: newIsAuthInProgress,
+      }))
+    }
+
     return {
         subscribe: store.subscribe,
+        setIsAuthInProgress,
         logout,
         login,
     }

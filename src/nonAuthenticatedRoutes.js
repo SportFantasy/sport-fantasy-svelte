@@ -1,8 +1,15 @@
 import LoginPage from './auth/LoginPage/LoginPage.svelte'
+import NonAuthRedirect from './common/NonAuthRedirect.svelte'
 
-const NON_AUTH_APP_ROUTES = {
-  '/login/:type': LoginPage,
-  '/': LoginPage,
+
+export const NON_AUTH_ROUTES = {
+  ROOT: '/',
+  LOGIN: '/login',
 }
 
-export default NON_AUTH_APP_ROUTES
+const NON_AUTH_ROUTER_CONFIG = {
+  [NON_AUTH_ROUTES.LOGIN]: LoginPage,
+  '*': NonAuthRedirect,
+}
+
+export default NON_AUTH_ROUTER_CONFIG

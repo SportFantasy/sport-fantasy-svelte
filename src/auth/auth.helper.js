@@ -20,3 +20,18 @@ export const getPersistedUserLoginData = () => {
   }
   return null
 }
+
+export const loginGoogleUser = (googleData, cb) => {
+  const token = googleData.credential.oauthIdToken || googleData.credential.idToken
+  const loggedUser = {
+    uid: googleData.user.uid,
+    displayName: googleData.user.displayName,
+    email: googleData.user.email,
+    token,
+    refreshToken: googleData.user.refreshToken,
+    credential: googleData.credential,
+  }
+
+  persistUserLoginData(loggedUser)
+  cb(token, loggedUser)
+}
