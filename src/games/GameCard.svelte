@@ -55,7 +55,7 @@
   </div>
   <div class="text-align-center f-s-40">Score {game.player1Score} : {game.player2Score}</div>
   {#if game.winner}
-  <div class="player player--winner text-align-center f-s-40">Winner: {game.winner.username}</div>
+  <div class="player player--winner text-align-center f-s-40">Winner: {game.winner.displayName}</div>
   {:else}
   <div class="player player--winner text-align-center f-s-40">Result: {game.result}</div>
   {/if}

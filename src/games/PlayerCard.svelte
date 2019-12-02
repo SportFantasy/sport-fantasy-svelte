@@ -47,8 +47,6 @@ button:hover, a:hover {
 
 <div class="card">
   <img src="images/football-icon.png" alt="John">
-  <h1>{playerInfo.username}</h1>
-  <!-- <p class="title">CEO & Founder, Example</p>
-  <p>Harvard University</p>-->
-  <button>About</button> 
+  <h1>{playerInfo.displayName}</h1>
+  <button>About</button>
 </div>
