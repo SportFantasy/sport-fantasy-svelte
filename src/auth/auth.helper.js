@@ -1,4 +1,4 @@
-import { getUserById, createUserById } from '../common/db/users'
+import { fetchUserById, createUserById } from '../common/db/users'
 
 const LOCAL_STORAGE_USER_DATA_KEY = 'LOGGED_USER'
 
@@ -38,7 +38,7 @@ export const getUserDataFromGoogleUser = (googleData) => {
 }
 
 export const getAndCreateUserById = ({id, email, displayName}) => {
-  return getUserById(id)
+  return fetchUserById(id)
     .catch((error) => {
       return createUserById({
         id,

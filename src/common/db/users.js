@@ -1,30 +1,35 @@
 import db from './db.js'
 
 
-const _processRawUsers = (rawUsers) => {
+const _processRawUsersCollection = (rawUsersCollection) => {
   let users = {}
-  rawUsers.forEach((doc) => {
-      const data = doc.data()
-      users[doc.id] = {
-        ...data,
-        id: doc.id,
-      }
+
+  rawUsersCollection.forEach((doc) => {
+      users[doc.id] = _processRawUserDoc(doc)
   });
 
   return users
 }
 
+const _processRawUserDoc = (rawDoc) => {
+  const data = rawDoc.data()
+  return {
+    ...data,
+    id: rawDoc.id,
+  }
+}
+
 export const getAllUsers = () => {
   return db.collection('users')
     .get()
-    .then(_processRawUsers);
+    .then(_processRawUsersCollection);
 }
 
-export const getUserById = (id) => {
+export const fetchUserById = (id) => {
   return db.collection('users').doc(id).get()
     .then( (userDocument) => {
       if (userDocument.exists) {
-        return userDocument.data()
+        return _processRawUserDoc(userDocument)
       }
       throw Error('No user')
     })

@@ -1,4 +1,5 @@
 <script>
+import { link } from "svelte-spa-router";
 export let playerInfo={};
 </script>
 
@@ -21,7 +22,7 @@ export let playerInfo={};
   font-size: 18px;
 }
 
-button {
+.user-info-button {
   border: none;
   outline: 0;
   display: inline-block;
@@ -48,5 +49,5 @@ button:hover, a:hover {
 <div class="card">
   <img src="images/football-icon.png" alt="John">
   <h1>{playerInfo.displayName}</h1>
-  <button>About</button>
+  <a class="user-info-button" href="/user/{playerInfo.id}" use:link>User Info</a>
 </div>

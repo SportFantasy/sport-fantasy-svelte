@@ -13,6 +13,15 @@ const createUsersStore = () => {
               ...users,
             }))
         },
+        updateUser: (user) => {
+            store.update((currentData) => ({
+              ...currentData,
+              [user.id]: {
+                ...currentData[user.id],
+                ...user,
+              }
+            }))
+        },
     }
 }
 
