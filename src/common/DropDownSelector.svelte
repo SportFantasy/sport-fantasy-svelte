@@ -59,8 +59,9 @@ $: getIsListVisibleClass = () => {
 
 <style>
 ul {
-  width: 10em;
+  width: 15em;
   position: absolute;
+  z-index: 100;
 }
   ul.hidden {
     display: none;

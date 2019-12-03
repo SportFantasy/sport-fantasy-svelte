@@ -3,14 +3,8 @@
   import ScoreTable from "./ScoreTable.svelte";
   import GameCard from "./GameCard.svelte";
 
-  import { onMount, afterUpdate } from "svelte";
-
   export let games;
   export let routeParams;
-
-  afterUpdate(() => {
-    console.log("milwe", routeParams, games);
-  });
 </script>
 
 <style>

@@ -45,7 +45,7 @@ const getGameTypesArrayForDD = (gameTypes) => {
 const getUsersArrayForDD = (users) => {
   return Object.values(users)
     .map(user => ({
-      display: user.displayName,
+      display: `${user.displayName} [${user.email}]`,
       value: user.id,
     }))
 }

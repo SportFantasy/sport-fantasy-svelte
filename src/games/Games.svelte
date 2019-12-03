@@ -18,6 +18,7 @@
     addGameTypesToGames,
     getGamesByGameTypeId,
     addResultAndWinnerToGames,
+    filterOutUnconfirmedGames,
   } from "../common/stores/games.store.helper";
 
   const getGamesData = () =>
@@ -46,13 +47,14 @@
   export let params = {};
 
   $: selectedGameTypeId = params.gameTypeId;
-  
+
 
   $: gamesArr = () => {
-    let selctedGameType = selectedGameTypeId !== 'all'? selectedGameTypeId : undefined;
+    const confirmedGames = filterOutUnconfirmedGames($gamesStore.games)
+    const gameTypeId = (selectedGameTypeId !== 'all') ? selectedGameTypeId : undefined
     const filteredGames = getGamesByGameTypeId(
-      $gamesStore.games,
-      selctedGameType
+      confirmedGames,
+      gameTypeId,
     );
     gamesArrayList = [...Object.values(filteredGames)];
     return gamesArrayList;

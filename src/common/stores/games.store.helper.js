@@ -124,3 +124,18 @@ export const getGamesByGameTypeId = (games, gameTypeId) => {
 
   return filteredGames
 }
+
+export const filterOutUnconfirmedGames = (games) => {
+  let filteredGames = {}
+
+  const foundGames = _filter(games, (game) => {
+    return ( game.isConfirmedPlayer1 && game.isConfirmedPlayer2 )
+  })
+  if (foundGames && foundGames.length) {
+    foundGames.forEach(foundGame => {
+      filteredGames[foundGame.id] = foundGame
+    })
+  }
+
+  return filteredGames
+}
