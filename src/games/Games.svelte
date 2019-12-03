@@ -9,8 +9,6 @@
   } from "../common/stores/games.store.helper";
 
 
-  let gamesArrayList = [];
-
   export let params = {};
 
   $: selectedGameTypeId = params.gameTypeId;
@@ -22,7 +20,7 @@
       confirmedGames,
       gameTypeId,
     );
-    gamesArrayList = [...Object.values(filteredGames)];
+    const gamesArrayList = [...Object.values(filteredGames)];
     return gamesArrayList;
   };
 </script>
