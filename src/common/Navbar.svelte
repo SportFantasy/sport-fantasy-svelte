@@ -27,6 +27,9 @@
             <a use:link href="/user">User</a>
           </li>
           <li class="p-10">
+            <a use:link href="/confirm">Confirm</a>
+          </li>
+          <li class="p-10">
             <a use:link href="/logout">Log Out</a>
           </li>
         {:else}

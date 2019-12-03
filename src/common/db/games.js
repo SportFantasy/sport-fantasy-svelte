@@ -1,25 +1,28 @@
 import db from './db.js'
 
 
-const _processRaw = (raw) => {
+const _processRawCollection = (rawCollection) => {
   let result = {}
 
-  raw.forEach((doc) => {
-      const data = doc.data()
-      console.log(data)
-      result[doc.id] = {
-        ...data,
-        id: doc.id,
-      }
+  rawCollection.forEach((doc) => {
+      result[doc.id] = _processRawSingle(doc)
   });
 
   return result
 }
 
+const _processRawSingle = (rawDoc) => {
+  const data = rawDoc.data()
+  return {
+    ...data,
+    id: rawDoc.id,
+  }
+}
+
 export const getAllGames = () => {
   return db.collection('games')
     .get()
-    .then(_processRaw);
+    .then(_processRawCollection);
 }
 
 export const createNewGame = ({
@@ -42,4 +45,25 @@ export const createNewGame = ({
     isConfirmedPlayer1,
     isConfirmedPlayer2,
   })
+}
+
+export const confirmSinglePlayerGame = (gameId, playerNo = 1) => {
+  let gamePropToUpdate
+  if (playerNo === 1) {
+    gamePropToUpdate = 'isConfirmedPlayer1'
+  } else if (playerNo === 2) {
+    gamePropToUpdate = 'isConfirmedPlayer2'
+  } else {
+    return Promise.reject(`Invalid playerNo - ${playerNo}`)
+  }
+
+  return db.collection('games').doc(gameId).set({
+    [gamePropToUpdate]: true,
+  }, { merge: true })
+}
+
+export const getGameById = (gameId) => {
+  return db.collection('games').doc(gameId)
+    .get()
+    .then(_processRawSingle);
 }

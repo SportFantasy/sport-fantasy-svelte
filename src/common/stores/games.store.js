@@ -6,6 +6,16 @@ const INITIAL_STORE = {
   games: {},
 }
 
+const updateSingleGame = (games, singleGame) => {
+  let newGames = { ...games }
+  const gameId = singleGame.id
+  newGames[gameId] = {
+    ...newGames[gameId],
+    ...singleGame,
+  }
+  return newGames
+}
+
 const createGamesStore = () => {
     const store = writable(INITIAL_STORE)
 
@@ -22,6 +32,12 @@ const createGamesStore = () => {
               ...currentData,
               games,
             }))
+        },
+        updateSingleGame: singleGame => {
+          store.update((currentData) => ({
+            ...currentData,
+            games: updateSingleGame(currentData.games, singleGame),
+          }))
         },
     }
 }
