@@ -11,7 +11,7 @@
   import { updateUsersLastLoginTimeById } from './common/db/users'
 
 
-  import NON_AUTH_APP_ROUTES from './auth/nonAuthenticatedRoutes'
+  import NON_AUTH_APP_ROUTES from './auth/nonAuthRouter.config'
   import Spinner from './common/Spinner.svelte'
 
 

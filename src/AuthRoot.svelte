@@ -2,7 +2,7 @@
   import Router from 'svelte-spa-router'
 
   import Navbar from './common/Navbar.svelte';
-  import AUTH_APP_ROUTES from './auth/authenticatedRoutes'
+  import AUTH_APP_ROUTES from './auth/authRouter.config'
   import { authStore } from './auth/auth.store'
 </script>
 
