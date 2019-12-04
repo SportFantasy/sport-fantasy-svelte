@@ -15,7 +15,7 @@
   }
 
   const handleConfirmButtonClick = (game) => {
-    
+
     let playerNo
     if (game.player1Id === $authStore.loggedUser.uid) {
       playerNo = 1
@@ -33,7 +33,7 @@
   }
 </script>
 
-<h1>Confirm</h1>
+<h1 class="text-center">Confirm</h1>
 
 <h2>Unconfirmed Games</h2>
 

@@ -64,10 +64,9 @@ const handleGameTypeDDClick = ({value}) => {
 $: usersForDd = getUsersArrayForDD($usersStore)
 </script>
 
-<h1>Submit Game</h1>
+<h1 class="text-center">Submit Game</h1>
 
-<div class="login-page">
-
+<div>
   <form on:submit={handleSubmit}>
     <label>
       <span>Game Type:</span>
@@ -121,7 +120,6 @@ $: usersForDd = getUsersArrayForDD($usersStore)
 
     <button type="submit">Submit</button>
   </form>
-
 </div>
 
 <style>

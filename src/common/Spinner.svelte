@@ -8,7 +8,7 @@
   width: 2em;
   margin: auto;
 
-  background-color: red;
+  background-color: var(--palette-color-4);
 
   -webkit-animation: spinner 1500ms infinite linear;
   -moz-animation: spinner 1500ms infinite linear;
