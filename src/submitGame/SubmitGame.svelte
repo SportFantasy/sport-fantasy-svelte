@@ -5,7 +5,7 @@ import { usersStore } from '../common/stores/users.store'
 import { getUnixTimeStampFromDate } from '../util/time.helper'
 
 import DropDownSelector from '../common/DropDownSelector.svelte'
-import Datepicker from 'svelte-calendar'
+import DatePicker from 'svelte-calendar'
 
 let gameTypeId;
 let player1Id;
@@ -20,6 +20,7 @@ let selectedDate
 
 const handleSubmit = (event) => {
   event.preventDefault()
+
   const datePlayed = getUnixTimeStampFromDate(selectedDate)
 
   createNewGame({
@@ -66,64 +67,153 @@ $: usersForDd = getUsersArrayForDD($usersStore)
 
 <h1 class="text-center">Submit Game</h1>
 
-<div>
-  <form on:submit={handleSubmit}>
-    <label>
-      <span>Game Type:</span>
-      <div class="form-value">
+
+<form class="styled-form" on:submit={handleSubmit}>
+  <ul>
+
+    <li class="styled-form__row">
+        <label class="styled-form__label" for="gameType">Game Type</label>
         <DropDownSelector
           values={getGameTypesArrayForDD($gamesStore.gameTypes)}
           onClickCb={handleGameTypeDDClick}
         />
-      </div>
-    </label>
+        <span class="styled-form__placeholder">Select game type from the list</span>
+    </li>
 
-    <label>
-      <span>Player 1:</span>
-      <div class="form-value">
+    <li class="styled-form__row">
+        <label class="styled-form__label" for="datePlayed">Date Played</label>
+        <DatePicker
+          bind:selected={selectedDate}
+          format={datepickerFormat}
+        />
+        <span class="styled-form__placeholder">Select the date from calendar</span>
+    </li>
+  
+    <li class="styled-form__row">
+        <label class="styled-form__label" for="player1">Player 1</label>
         <DropDownSelector
           values={usersForDd}
           onClickCb={handlePlayer1DDClick}
         />
-      </div>
-    </label>
+        <span class="styled-form__placeholder">Select player 1 from the list</span>
+    </li>
 
-    <label>
-      <span>Player 2:</span>
-      <div class="form-value">
+    <li class="styled-form__row">
+        <label class="styled-form__label" for="player1Score">Player 1 score</label>
+        <input
+          required
+          class="styled-form__input"
+          type="number"
+          name="player1Score"
+          maxlength="100"
+          min="0"
+          max="100"
+          bind:value={player1Score}
+        />
+        <span class="styled-form__placeholder">Enter player 1 score</span>
+    </li>
+
+    <li class="styled-form__row">
+        <label class="styled-form__label" for="player2">Player 2</label>
         <DropDownSelector
           values={usersForDd}
           onClickCb={handlePlayer2DDClick}
         />
-      </div>
-    </label>
+        <span class="styled-form__placeholder">Select player 2 from the list</span>
+    </li>
 
-    <label>
-      <span>Player 1 score:</span>
-      <input type="number" bind:value={player1Score} />
-    </label>
+    <li class="styled-form__row">
+        <label class="styled-form__label" for="player2Score">Player 2 score</label>
+        <input
+          required
+          class="styled-form__input"
+          type="number"
+          name="player2Score"
+          maxlength="100"
+          min="0"
+          max="100"
+          bind:value={player2Score}
+        />
+        <span class="styled-form__placeholder">Enter player 2 score</span>
+    </li>
 
-    <label>
-      <span>Player 2 score:</span>
-      <input type="number" bind:value={player2Score} />
-    </label>
-
-    <label>
-      <span>Date played:</span>
-      <div class="form-value">
-        <Datepicker
-          bind:selected={selectedDate}
-          format={datepickerFormat}
-         />
-      </div>
-    </label>
-
-    <button type="submit">Submit</button>
-  </form>
-</div>
+    <li class="styled-form__row">
+        <input 
+          class="styled-form__input styled-form__input--button"
+          type="submit"
+          value="Send This"
+        />
+    </li>
+  </ul>
+</form>
+  
 
 <style>
-.form-value {
-  display: inline-block;
+.styled-form {
+	max-width: 400px;
+	margin: 0 auto;
+	background: #fff;
+	border-radius: 2px;
+	padding: 20px;
+}
+.styled-form__row {
+	display: block;
+	padding: 9px;
+	border: 1px solid var(--form-border-color);
+	margin-bottom: 30px;
+	border-radius: 3px;
+}
+.styled-form__row:last-child {
+	border:none;
+	margin-bottom: 0;
+	text-align: center;
+}
+.styled-form__label {
+	display: block;
+	float: left;
+	margin-top: -19px;
+	background: #FFFFFF;
+	height: 14px;
+	padding: 2px 5px 2px 5px;
+	color: var(--color-emphasize);
+	font-size: 14px;
+	overflow: hidden;
+}
+.styled-form__input {
+  display: block;
+  width: 100%;
+  color: var(--main-text-color);
+	outline: none;
+	border: none;
+	height: 25px;
+	line-height: 25px;
+	font-size: 16px;
+	padding: 0;
+}
+.styled-form__placeholder {
+	background: var(--form-border-color);
+	display: block;
+	padding: 3px;
+	margin: 0 -9px -9px -9px;
+	text-align: center;
+	color: var(--form-placeholder-color);
+	font-size: 11px;
+}
+.styled-form__input--button {
+  transition: background-color 0.2s;
+	background-color: var(--palette-color-4);
+  border: none;
+  height: auto;
+	padding: 0.5em;
+	border-bottom: 3px solid var(--palette-color-5);
+	border-radius: 3px;
+  color: #fff;
+}
+
+.styled-form__input--button:hover,
+.styled-form__input--button:focus {
+  cursor: pointer;
+  background-color: var(--color-emphasize);
+  color:#fff;
 }
 </style>
