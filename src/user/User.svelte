@@ -12,6 +12,7 @@
   import { fetchUserById } from '../common/db/users'
   import { getShortDisplayDate } from '../util/date.helper'
 
+  import UserWidget from './UserWidget.svelte'
   import Spinner from '../common/Spinner.svelte'
 
   export let params = {}
@@ -36,7 +37,7 @@
 
   const loadUnconfirmedGames = (userId) => {
     const unconfirmedGamesObject = getUnconfirmedGamesByUserId($gamesStore.games, userId)
-    unconfirmedGamesNo = Object.keys(unconfirmedGamesObject).length
+    unConfirmedGamesNo = Object.keys(unconfirmedGamesObject).length
   }
 
   const loadConfirmedGames = (userId) => {
@@ -48,7 +49,7 @@
   let user = null
   let isLoading = true
   let errorMessage = ''
-  let unconfirmedGamesNo = null
+  let unConfirmedGamesNo = null
   let confirmedGamesNo = null
 
   onMount(() => {
@@ -66,15 +67,15 @@
     {/if}
 
     {#if user}
-    <h2>User: {user.displayName}</h2>
-    <p>Email: {user.email}</p>
-    <p>Created: {getShortDisplayDate(user.createdAt)}</p>
-    <p>Confirmed Games: {confirmedGamesNo}</p>
-    <p>Unconfirmed Games: {unconfirmedGamesNo}</p>
+      <UserWidget
+        {user}
+        {confirmedGamesNo}
+        {unConfirmedGamesNo}
+      />
     {/if}
 
     {#if errorMessage}
-    <p>{errorMessage}</p>
+      <p>{errorMessage}</p>
     {/if}
   </div>
 </div>

@@ -1,7 +1,7 @@
 import Home from '../home/Home.svelte'
 import Games from '../games/Games.svelte'
 import SubmitGame from '../games/SubmitGame.svelte'
-import User from '../User/User.svelte'
+import User from '../user/User.svelte'
 import Logout from './Logout/Logout.svelte'
 import Confirm from '../confirm/Confirm.svelte'
 
