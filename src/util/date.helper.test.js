@@ -1,5 +1,6 @@
 import {
   getShortDisplayDate,
+  getShortDisplayDateTime,
 } from './date.helper'
 
 
@@ -19,6 +20,15 @@ describe('date.helper', () => {
 
     it('should return null for null input', () => {
       expect(getShortDisplayDate(null)).toBe(null)
+    })
+  })
+
+  describe('getShortDisplayDateTime', () => {
+    it('should return formatted string "Dec 4, 2019, 1:34 PM" for 1575462844799 unix timestamp (2019/12/4)', () => {
+      const timestamp = 1575462844799
+      const expected = 'Dec 4, 2019, 1:34 PM'
+
+      expect(getShortDisplayDateTime(timestamp)).toBe(expected)
     })
   })
 })

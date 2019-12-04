@@ -1,6 +1,6 @@
 <script>
 import WidgetDetailRow from '../common/WidgetDetailRow.svelte'
-import { getShortDisplayDate } from '../util/date.helper'
+import { getShortDisplayDateTime } from '../util/date.helper'
 
 export let user = {}
 export let confirmedGamesNo = null
@@ -11,7 +11,8 @@ export let unConfirmedGamesNo = null
   <h1 class="user-widget__title">{user.displayName}</h1>
 
   <WidgetDetailRow label="Email" value={user.email} />
-  <WidgetDetailRow label="Created" value={getShortDisplayDate(user.createdAt)} />
+  <WidgetDetailRow label="Created" value={getShortDisplayDateTime(user.createdAt)} />
+  <WidgetDetailRow label="Last Login" value={getShortDisplayDateTime(user.lastLoginAt)} />
   <WidgetDetailRow label="Identifier" value={user.id} />
   <WidgetDetailRow label="Confirmed Games" value={confirmedGamesNo} />
   <WidgetDetailRow label="Unconfirmed Games" value={unConfirmedGamesNo} />
@@ -25,8 +26,6 @@ export let unConfirmedGamesNo = null
 }
 
 .user-widget__title {
-  font-size: 2em;
-  color: red;
   margin: 0;
   margin-bottom: 1em;
 }

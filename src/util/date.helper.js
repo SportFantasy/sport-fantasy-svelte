@@ -9,3 +9,12 @@ export const getShortDisplayDate = (date) => {
     return date
   }
 }
+
+export const getShortDisplayDateTime = (date) => {
+  try {
+    const dt = DateTime.fromMillis(date)
+    return dt.toLocaleString(DateTime.DATETIME_MED)
+  } catch (error) {
+    return date
+  }
+}
