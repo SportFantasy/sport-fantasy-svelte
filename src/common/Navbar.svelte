@@ -5,7 +5,7 @@
 </script>
 
 <nav>
-    <ul>
+    <ul class="wrapper">
       {#if isAuthenticated}
         <li>
           <a use:link href="/">Home</a>

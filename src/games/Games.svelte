@@ -37,6 +37,6 @@
   gameTypes={$gamesStore.gameTypes}
   activeGameTypeId={selectedGameTypeId} />
 
-<section class="h-100">
+<section>
   <Score games={gamesArr()} routeParams={params}/>
 </section>

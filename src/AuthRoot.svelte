@@ -16,6 +16,6 @@
 
 <Navbar isAuthenticated={$authStore.isAuthenticated} />
 
-<main class="global-main">
+<main class="global-main wrapper">
     <Router routes={AUTH_APP_ROUTES} />
 </main>

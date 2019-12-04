@@ -14,9 +14,7 @@
     width: 100%;
     margin: 20px 0;
   }
-  .score-content {
-    width: 30%;
-  }
+  .score-content {}
   .score-header {
     text-transform: uppercase;
     font-size: 40px;
