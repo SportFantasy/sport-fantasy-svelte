@@ -14,7 +14,9 @@ let player1Score;
 let player2Score;
 
 
-const datepickerFormat = '#{d}/#{m}/#{Y}'
+const datePickerFormat = '#{d}/#{m}/#{Y}'
+const datePickerStartDate = new Date(2018, 0, 1)
+const datePickerEndDate = new Date()
 let selectedDate
 
 
@@ -86,7 +88,9 @@ $: usersForDd = getUsersArrayForDD($usersStore)
         <label class="styled-form__label" for="datePlayed">Date Played</label>
         <DatePicker
           bind:selected={selectedDate}
-          format={datepickerFormat}
+          format={datePickerFormat}
+          start={datePickerStartDate}
+          end={datePickerEndDate}
         />
         <span class="styled-form__placeholder">Select the date from calendar</span>
     </li>
