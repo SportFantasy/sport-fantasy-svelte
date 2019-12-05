@@ -11,16 +11,6 @@ const INITIAL_STORE = {
 const createStore = () => {
     const store = writable(INITIAL_STORE)
 
-
-    const login = (newAuthToken, newUser) => {
-      store.update((storeData) => ({
-        ...storeData,
-        authToken: newAuthToken,
-        isAuthenticated: true,
-        loggedUser: newUser,
-      }))
-    }
-
     const setLoggedUser = (newUser) => {
       store.update((storeData) => ({
         ...storeData,
@@ -36,9 +26,9 @@ const createStore = () => {
     }
 
     const logout = () => {
-      store.update((storeData) => ({
+      store.set({
         ...INITIAL_STORE,
-      }))
+      })
     }
 
     const setIsAuthInProgress = (newIsAuthInProgress) => {
@@ -54,7 +44,6 @@ const createStore = () => {
         setIsAuthenticated,
         setIsAuthInProgress,
         logout,
-        login,
     }
 }
 
