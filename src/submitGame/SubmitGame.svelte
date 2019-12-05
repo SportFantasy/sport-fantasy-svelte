@@ -74,6 +74,8 @@ $: usersForDd = getUsersArrayForDD($usersStore)
     <li class="styled-form__row">
         <label class="styled-form__label" for="gameType">Game Type</label>
         <DropDownSelector
+          isTransparent={true}
+          textAlign="left"
           values={getGameTypesArrayForDD($gamesStore.gameTypes)}
           onClickCb={handleGameTypeDDClick}
         />
@@ -88,10 +90,12 @@ $: usersForDd = getUsersArrayForDD($usersStore)
         />
         <span class="styled-form__placeholder">Select the date from calendar</span>
     </li>
-  
+
     <li class="styled-form__row">
         <label class="styled-form__label" for="player1">Player 1</label>
         <DropDownSelector
+          isTransparent={true}
+          textAlign="left"
           values={usersForDd}
           onClickCb={handlePlayer1DDClick}
         />
@@ -116,6 +120,8 @@ $: usersForDd = getUsersArrayForDD($usersStore)
     <li class="styled-form__row">
         <label class="styled-form__label" for="player2">Player 2</label>
         <DropDownSelector
+          isTransparent={true}
+          textAlign="left"
           values={usersForDd}
           onClickCb={handlePlayer2DDClick}
         />
@@ -138,7 +144,7 @@ $: usersForDd = getUsersArrayForDD($usersStore)
     </li>
 
     <li class="styled-form__row">
-        <input 
+        <input
           class="styled-form__input styled-form__input--button"
           type="submit"
           value="Send This"
@@ -146,7 +152,7 @@ $: usersForDd = getUsersArrayForDD($usersStore)
     </li>
   </ul>
 </form>
-  
+
 
 <style>
 .styled-form {
@@ -158,7 +164,7 @@ $: usersForDd = getUsersArrayForDD($usersStore)
 }
 .styled-form__row {
 	display: block;
-	padding: 9px;
+	padding: 9px 0;
 	border: 1px solid var(--form-border-color);
 	margin-bottom: 30px;
 	border-radius: 3px;
@@ -194,7 +200,7 @@ $: usersForDd = getUsersArrayForDD($usersStore)
 	background: var(--form-border-color);
 	display: block;
 	padding: 3px;
-	margin: 0 -9px -9px -9px;
+	margin: 0 0 -9px 0;
 	text-align: center;
 	color: var(--form-placeholder-color);
 	font-size: 11px;

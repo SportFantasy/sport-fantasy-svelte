@@ -1,6 +1,14 @@
 <script>
+import { getButtonClass } from './DropDownSelector.helper'
+/**
+can work with just an array of strings/numbers
+or with array of objects { display, value }
+**/
+
 export let values = []
 export let onClickCb
+export let isTransparent = false
+export let textAlign = 'center' // align can be left/right/center
 
 let isListVisible = false
 let selectedValue = null
@@ -32,7 +40,7 @@ $: getIsListVisibleClass = () => {
 
 <div>
   <button
-    class="select-button"
+    class={getButtonClass(isTransparent, textAlign)}
     type="button"
     on:click={handleSelectButtonClick}
   >
@@ -79,5 +87,24 @@ li {
 
 .select-button {
   margin: 0;
+  width: 100%;
+}
+
+.select-button--is-transparent {
+  background: none;
+  outline: 0;
+  border: 0;
+}
+
+.select-button--text-align-left {
+  text-align: left;
+}
+
+.select-button--text-align-center {
+  text-align: center;
+}
+
+.select-button--text-align-right {
+  text-align: right;
 }
 </style>
