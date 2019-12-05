@@ -14,6 +14,7 @@
 
   import UserWidget from './UserWidget.svelte'
   import Spinner from '../common/Spinner.svelte'
+  import GameCard from '../games/GameCard.svelte'
 
   export let params = {}
 
@@ -37,20 +38,24 @@
 
   const loadUnconfirmedGames = (userId) => {
     const unconfirmedGamesObject = getUnconfirmedGamesByUserId($gamesStore.games, userId)
-    unConfirmedGamesNo = Object.keys(unconfirmedGamesObject).length
+    unConfirmedGamesArr = Object.values(unconfirmedGamesObject)
+    unConfirmedGamesNo = unConfirmedGamesArr.length
   }
 
   const loadConfirmedGames = (userId) => {
     const confirmedGamesObject = getConfirmedGamesByUserId($gamesStore.games, userId)
-    confirmedGamesNo = Object.keys(confirmedGamesObject).length
+    confirmedGamesArr = Object.values(confirmedGamesObject)
+    confirmedGamesNo = confirmedGamesArr.length
   }
 
 
   let user = null
   let isLoading = true
   let errorMessage = ''
-  let unConfirmedGamesNo = null
+  let confirmedGamesArr = null
+  let unConfirmedGamesArr = null
   let confirmedGamesNo = null
+  let unConfirmedGamesNo = null
 
   onMount(() => {
     const userId = params.userId || $authStore.loggedUser.uid
@@ -74,8 +79,32 @@
       />
     {/if}
 
+    {#if confirmedGamesNo}
+      <article class="games-wrapper">
+        <h1>Confirmed Games</h1>
+        {#each confirmedGamesArr as game}
+          <GameCard {game} />
+        {/each}
+      </article>
+    {/if}
+
+    {#if unConfirmedGamesNo}
+      <article class="games-wrapper">
+        <h1>Unconfirmed Games</h1>
+        {#each unConfirmedGamesArr as game}
+          <GameCard {game} />
+        {/each}
+      </article>
+    {/if}
+
     {#if errorMessage}
       <p>{errorMessage}</p>
     {/if}
   </div>
 </div>
+
+<style>
+.games-wrapper {
+  padding-top: 3em;
+}
+</style>
