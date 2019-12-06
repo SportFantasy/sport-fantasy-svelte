@@ -1,15 +1,12 @@
 <script>
-  import { onMount, beforeUpdate } from 'svelte'
+  import { onMount } from 'svelte'
 
-  import { authStore } from '../auth/auth.store'
-  import { usersStore } from '../common/stores/users.store'
-  import { gamesStore } from '../games/games.store'
+  import { getLoggedUser } from '../auth/auth.service'
   import {
-    getUnconfirmedGamesByUserId,
-    getConfirmedGamesByUserId,
-  } from '../games/games.store.helper'
-  import { getUserById } from '../common/stores/users.store.helper'
-  import { fetchUserById } from '../common/db/users'
+      getConfirmedGamesArrByUserId,
+      getUnconfirmedGamesArrByUserId,
+  } from '../games/games.service'
+  import { fetchUserDataById } from './users.service'
   import { getShortDisplayDate } from '../util/date.helper'
 
   import UserWidget from './UserWidget.svelte'
@@ -22,29 +19,26 @@
     isLoading = true
     user = null
 
-    return fetchUserById(userId)
-      .then(usersStore.updateUser)
-      .then(() => {
-        user = getUserById($usersStore, userId)
-        isLoading = false
-        errorMessage = ''
+    return fetchUserDataById(userId)
+      .then((userData) => {
+            user = userData
+            isLoading = false
+            errorMessage = ''
       })
       .catch((error) => {
-        console.log(error)
-        isLoading = false
-        errorMessage = error.message
+            console.log(error)
+            isLoading = false
+            errorMessage = error.message
       })
   }
 
   const loadUnconfirmedGames = (userId) => {
-    const unconfirmedGamesObject = getUnconfirmedGamesByUserId($gamesStore.games, userId)
-    unConfirmedGamesArr = Object.values(unconfirmedGamesObject)
+    unConfirmedGamesArr = getConfirmedGamesArrByUserId(userId)
     unConfirmedGamesNo = unConfirmedGamesArr.length
   }
 
   const loadConfirmedGames = (userId) => {
-    const confirmedGamesObject = getConfirmedGamesByUserId($gamesStore.games, userId)
-    confirmedGamesArr = Object.values(confirmedGamesObject)
+    confirmedGamesArr = getUnconfirmedGamesArrByUserId(userId)
     confirmedGamesNo = confirmedGamesArr.length
   }
 
@@ -58,7 +52,7 @@
   let unConfirmedGamesNo = null
 
   onMount(() => {
-    const userId = params.userId || $authStore.loggedUser.uid
+    const userId = params.userId || getLoggedUser().uid
     loadUserData(userId)
     loadConfirmedGames(userId)
     loadUnconfirmedGames(userId)

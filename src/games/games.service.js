@@ -5,10 +5,16 @@ import {
     addGameTypesToGames,
     addResultAndWinnerToGames,
 } from "./games.store.helper";
-import { usersStore } from "../common/stores/users.store";
+import { usersStore } from "../user/users.store";
 import { getAllUsers } from "../common/db/users.js";
 import { getAllGames, confirmSinglePlayerGame, getGameById, } from "../common/db/games.js";
 import { getAllGameTypes } from "../common/db/gameTypes.js";
+import {
+    getUnconfirmedGamesByUserId,
+    getConfirmedGamesByUserId,
+    getGamesByGameTypeId,
+    filterOutUnconfirmedGames,
+} from './games.store.helper'
 
 
 const _fetchAllGamesAndUsersData = () => {
@@ -44,26 +50,25 @@ export const confirmGameByPlayerId = (gameId, gamePlayer1Id, gamePlayer2Id, play
         .then(gamesStore.updateSingleGame)
 }
 
-
-const _getUnconfirmedGamesByUserId = (games, userId) => {
-    let foundGames = {}
-
-    for (let key in games) {
-        const game = games[key]
-        if (
-            ( (game.player1Id === userId) && (!game.isConfirmedPlayer1)) ||
-            ( (game.player2Id === userId) && (!game.isConfirmedPlayer2))
-        ) {
-            foundGames[key] = game
-        }
-    }
-
-    return foundGames
+export const getConfirmedGamesArrByUserId = (userId) => {
+    const currentGames = get(gamesStore).games
+    const confirmedGamesObject = getConfirmedGamesByUserId(currentGames, userId)
+    return Object.values(confirmedGamesObject)
 }
 
 export const getUnconfirmedGamesArrByUserId = (userId) => {
     const currentGames = get(gamesStore).games
-    const unconfirmedGames = _getUnconfirmedGamesByUserId(currentGames, userId)
-    const unconfirmedGamesArr = Object.values(unconfirmedGames)
-    return unconfirmedGamesArr
+    const unconfirmedGamesObject = getUnconfirmedGamesByUserId(currentGames, userId)
+    return Object.values(unconfirmedGamesObject)
+}
+
+export const getConfirmedGamesByGameTypeId = (selectedGameTypeId) => {
+    const currentGames = get(gamesStore).games
+    const confirmedGames = filterOutUnconfirmedGames(currentGames)
+    const gameTypeId = (selectedGameTypeId !== 'all') ? selectedGameTypeId : undefined
+    const filteredGames = getGamesByGameTypeId(
+        confirmedGames,
+        gameTypeId,
+    );
+    return Object.values(filteredGames)
 }

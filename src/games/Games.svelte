@@ -1,28 +1,15 @@
 <script>
   import GameTypeSelector from "./GameTypeSelector.svelte";
-  import GameCard from "./GameCard.svelte";
   import Score from "./Score.svelte";
   import { gamesStore } from "./games.store";
-  import {
-    getGamesByGameTypeId,
-    filterOutUnconfirmedGames,
-  } from "./games.store.helper";
+  import { getConfirmedGamesByGameTypeId } from './games.service'
 
 
   export let params = {};
 
   $: selectedGameTypeId = params.gameTypeId;
 
-  $: gamesArr = () => {
-    const confirmedGames = filterOutUnconfirmedGames($gamesStore.games)
-    const gameTypeId = (selectedGameTypeId !== 'all') ? selectedGameTypeId : undefined
-    const filteredGames = getGamesByGameTypeId(
-      confirmedGames,
-      gameTypeId,
-    );
-    const gamesArrayList = [...Object.values(filteredGames)];
-    return gamesArrayList;
-  };
+  $: games = getConfirmedGamesByGameTypeId(selectedGameTypeId)
 </script>
 
 <style>
@@ -38,5 +25,5 @@
   activeGameTypeId={selectedGameTypeId} />
 
 <section>
-  <Score games={gamesArr()} routeParams={params}/>
+  <Score {games} routeParams={params}/>
 </section>

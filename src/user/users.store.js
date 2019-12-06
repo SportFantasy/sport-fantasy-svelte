@@ -1,7 +1,11 @@
 import { writable } from 'svelte/store'
 
 
-const INITIAL_STORE = {}
+const INITIAL_STORE = {
+    isLoading: false,
+    errorMessage: '',
+    users: null,
+}
 
 const createUsersStore = () => {
     const store = writable(INITIAL_STORE)
@@ -10,16 +14,20 @@ const createUsersStore = () => {
         subscribe: store.subscribe,
         setUsers: (users) => {
             store.update((currentData) => ({
-              ...users,
+                ...currentData,
+                users,
             }))
         },
         updateUser: (user) => {
             store.update((currentData) => ({
-              ...currentData,
-              [user.id]: {
-                ...currentData[user.id],
-                ...user,
-              }
+                ...currentData,
+                users: {
+                    ...currentData.users,
+                    [user.id]: {
+                        ...currentData[user.id],
+                        ...user,
+                    },
+                },
             }))
         },
     }

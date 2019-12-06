@@ -1,7 +1,7 @@
 <script>
 import { createNewGame } from '../common/db/games'
 import { gamesStore } from '../games/games.store'
-import { usersStore } from '../common/stores/users.store'
+import { usersStore } from '../user/users.store'
 import { getUnixTimeStampFromDate } from '../util/time.helper'
 
 import DropDownSelector from '../common/DropDownSelector.svelte'
@@ -64,7 +64,7 @@ const handleGameTypeDDClick = ({value}) => {
   gameTypeId = value
 }
 
-$: usersForDd = getUsersArrayForDD($usersStore)
+$: usersForDd = getUsersArrayForDD($usersStore.users)
 </script>
 
 <h1 class="text-center">Submit Game</h1>

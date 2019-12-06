@@ -1,12 +1,11 @@
 <script>
-  import { push } from "svelte-spa-router";
   import { link } from "svelte-spa-router";
 
   export let gameTypes = {};
   export let activeGameTypeId;
 
   $: gameTypeArr = Object.values(gameTypes);
-  const getImageSrc = (currentGame, activeGameTypeId) => {
+  const getImageSrc = (currentGame) => {
     let imgSrc = "";
     let gameName = !(currentGame && currentGame.name)
       ? "all"
