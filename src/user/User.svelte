@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from 'svelte'
+  import { onMount, beforeUpdate } from 'svelte'
 
   import { getLoggedUser } from '../auth/auth.service'
   import {
@@ -7,7 +7,6 @@
       getUnconfirmedGamesArrByUserId,
   } from '../games/games.service'
   import { fetchUserDataById } from './users.service'
-  import { getShortDisplayDate } from '../util/date.helper'
 
   import UserWidget from './UserWidget.svelte'
   import Spinner from '../common/Spinner.svelte'
@@ -15,49 +14,58 @@
 
   export let params = {}
 
-  const loadUserData = (userId) => {
-    isLoading = true
-    user = null
-
-    return fetchUserDataById(userId)
-      .then((userData) => {
-            user = userData
-            isLoading = false
-            errorMessage = ''
-      })
-      .catch((error) => {
-            console.log(error)
-            isLoading = false
-            errorMessage = error.message
-      })
-  }
-
-  const loadUnconfirmedGames = (userId) => {
-    unConfirmedGamesArr = getConfirmedGamesArrByUserId(userId)
-    unConfirmedGamesNo = unConfirmedGamesArr.length
-  }
-
-  const loadConfirmedGames = (userId) => {
-    confirmedGamesArr = getUnconfirmedGamesArrByUserId(userId)
-    confirmedGamesNo = confirmedGamesArr.length
-  }
-
-
+  let scrollY = 0
   let user = null
   let isLoading = true
   let errorMessage = ''
-  let confirmedGamesArr = null
-  let unConfirmedGamesArr = null
+  let confirmedGamesArr = []
+  let unConfirmedGamesArr = []
   let confirmedGamesNo = null
   let unConfirmedGamesNo = null
 
+  const loadUserData = (userId) => {
+      isLoading = true
+      user = null
+
+      return fetchUserDataById(userId)
+          .then((userData) => {
+              user = userData
+              isLoading = false
+              errorMessage = ''
+              scrollY = 0
+          })
+          .catch((error) => {
+              console.log(error)
+              isLoading = false
+              errorMessage = error.message
+              scrollY = 0
+          })
+  }
+
+  $: {
+      confirmedGamesArr = getConfirmedGamesArrByUserId( (params.userId || getLoggedUser().uid) )
+      unConfirmedGamesArr = getUnconfirmedGamesArrByUserId( (params.userId || getLoggedUser().uid) )
+      confirmedGamesNo = confirmedGamesArr.length
+      unConfirmedGamesNo = unConfirmedGamesArr.length
+  }
+
   onMount(() => {
-    const userId = params.userId || getLoggedUser().uid
-    loadUserData(userId)
-    loadConfirmedGames(userId)
-    loadUnconfirmedGames(userId)
+      const userId = params.userId || getLoggedUser().uid
+      loadUserData(userId)
+  })
+
+  beforeUpdate(() => {
+      const requestedUserId = (params.userId || getLoggedUser().uid)
+      if (
+          (user && user.id) &&
+          (user.id !== requestedUserId)
+      ) {
+          loadUserData(requestedUserId)
+      }
   })
 </script>
+
+<svelte:window bind:scrollY={scrollY}/>
 
 <div class="flex-row justify-content-space-around">
   <div class="flex-column justify-content-space-around">
