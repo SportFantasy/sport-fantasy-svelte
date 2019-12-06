@@ -5,11 +5,11 @@
   import Navbar from './common/Navbar.svelte';
   import AUTH_APP_ROUTES from './auth/authRouter.config'
   import { authStore } from './auth/auth.store'
-  import { getInitialData } from './common/stores/initialLoad.helper'
+  import { fetchAndInitGamesData } from './games/games.service'
 
 
   onMount(() => {
-    getInitialData()
+      fetchAndInitGamesData()
   });
 </script>
 

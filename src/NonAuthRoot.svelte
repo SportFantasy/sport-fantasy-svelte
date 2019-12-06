@@ -8,10 +8,7 @@
   onMount(() => {
     autoSignIn()
       .then( () => push('/') )
-      .catch( (error) => {
-        console.log(error)
-        push('/login')
-      })
+      .catch( () => push('/login') )
   })
 </script>
 

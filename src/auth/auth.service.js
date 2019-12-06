@@ -47,6 +47,7 @@ export const logout = () => {
 export const autoSignIn = () => {
     const loggedUser = getPersistedUserLoginData()
     if (!loggedUser) {
+        authStore.setIsAuthInProgress(false)
         return Promise.reject('no saved user')
     }
 
@@ -54,8 +55,14 @@ export const autoSignIn = () => {
         authStore.setIsAuthInProgress(true)
         const credential = firebase.auth.GoogleAuthProvider.credential(loggedUser.credential.oauthIdToken)
         return firebase.auth().signInWithCredential(credential)
-            .then(_handleGoogleUserAndLastLogin)
+            .then( _handleGoogleUserAndLastLogin )
+            .catch( (error)=> {
+                authStore.setIsAuthInProgress(false)
+                return Promise.reject(error)
+            })
     } catch (error) {
+        console.log(error)
+        authStore.setIsAuthInProgress(false)
         return Promise.reject(error)
     }
 }

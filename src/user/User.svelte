@@ -3,11 +3,11 @@
 
   import { authStore } from '../auth/auth.store'
   import { usersStore } from '../common/stores/users.store'
-  import { gamesStore } from '../common/stores/games.store'
+  import { gamesStore } from '../games/games.store'
   import {
     getUnconfirmedGamesByUserId,
     getConfirmedGamesByUserId,
-  } from '../common/stores/games.store.helper'
+  } from '../games/games.store.helper'
   import { getUserById } from '../common/stores/users.store.helper'
   import { fetchUserById } from '../common/db/users'
   import { getShortDisplayDate } from '../util/date.helper'

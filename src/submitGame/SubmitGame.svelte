@@ -1,6 +1,6 @@
 <script>
 import { createNewGame } from '../common/db/games'
-import { gamesStore } from '../common/stores/games.store'
+import { gamesStore } from '../games/games.store'
 import { usersStore } from '../common/stores/users.store'
 import { getUnixTimeStampFromDate } from '../util/time.helper'
 

@@ -2,11 +2,11 @@
   import GameTypeSelector from "./GameTypeSelector.svelte";
   import GameCard from "./GameCard.svelte";
   import Score from "./Score.svelte";
-  import { gamesStore } from "../common/stores/games.store";
+  import { gamesStore } from "./games.store";
   import {
     getGamesByGameTypeId,
     filterOutUnconfirmedGames,
-  } from "../common/stores/games.store.helper";
+  } from "./games.store.helper";
 
 
   export let params = {};

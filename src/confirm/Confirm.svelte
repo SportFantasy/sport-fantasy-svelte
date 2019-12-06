@@ -1,5 +1,5 @@
 <script>
-  import { gamesStore } from '../common/stores/games.store'
+  import { gamesStore } from '../games/games.store'
   import { authStore } from '../auth/auth.store'
   import { getUnconfirmedGamesByUserId } from './confirm.helper'
   import { getShortDisplayDate } from '../util/date.helper'
