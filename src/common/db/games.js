@@ -47,7 +47,7 @@ export const createNewGame = ({
   })
 }
 
-export const confirmSinglePlayerGame = (gameId, playerNo = 1) => {
+export const confirmSinglePlayerGame = (gameId, playerNo) => {
   let gamePropToUpdate
   if (playerNo === 1) {
     gamePropToUpdate = 'isConfirmedPlayer1'

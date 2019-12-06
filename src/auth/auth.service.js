@@ -1,4 +1,5 @@
 import { authStore } from './auth.store'
+import { get } from 'svelte/store'
 import {
     clearUserLoginData,
     getAndCreateUserById,
@@ -65,4 +66,8 @@ export const autoSignIn = () => {
         authStore.setIsAuthInProgress(false)
         return Promise.reject(error)
     }
+}
+
+export const getLoggedUser = () => {
+    return get(authStore).loggedUser
 }
