@@ -1,40 +1,79 @@
 <script>
+    import { onDestroy } from 'svelte'
 import { createNewGame } from '../common/db/games'
 import { gamesStore } from '../games/games.store'
 import { usersStore } from '../user/users.store'
 import { getUnixTimeStampFromDate } from '../util/time.helper'
+import { validate, buildHumanErrors} from '../util/validation.service'
+import validationSchema from './SubmitGame.formValidationSchema'
 
 import DropDownSelector from '../common/DropDownSelector.svelte'
 import DatePicker from 'svelte-calendar'
-
-let gameTypeId;
-let player1Id;
-let player2Id;
-let player1Score;
-let player2Score;
 
 
 const datePickerFormat = '#{d}/#{m}/#{Y}'
 const datePickerStartDate = new Date(2018, 0, 1)
 const datePickerEndDate = new Date()
-let selectedDate
 
+let gameTypeId
+let player1Id
+let player2Id
+let player1Score
+let player2Score
+let selectedDate
+let validationErrors = ''
+let message = ''
+let clearSuccessMessageTimer
+let scrollY = 0
+
+const resetForm = () => {
+    gameTypeId = undefined
+    player1Id = undefined
+    player2Id = undefined
+    player1Score = undefined
+    player2Score = undefined
+    validationErrors = ''
+    message = ''
+}
+
+const showSuccessMessage = (timeInMiliseconds = 5000) => {
+    scrollY = 0
+    message = 'Success!'
+    clearSuccessMessageTimer = setTimeout(() => {
+        message = ''
+    }, timeInMiliseconds)
+}
 
 const handleSubmit = (event) => {
-  event.preventDefault()
+    event.preventDefault()
 
-  const datePlayed = getUnixTimeStampFromDate(selectedDate)
+    const datePlayed = getUnixTimeStampFromDate(selectedDate)
+    const inputGameData = {
+        gameTypeId,
+        player1Id,
+        player2Id,
+        player1Score,
+        player2Score,
+        datePlayed,
+    }
 
-  createNewGame({
-    gameTypeId,
-    player1Id,
-    player2Id,
-    player1Score,
-    player2Score,
-    datePlayed,
-  })
-    .then(console.log)
-    .catch(console.log)
+    // validate form
+    const validationErrorsArr = validate(validationSchema, inputGameData)
+    if (validationErrorsArr.length) {
+        validationErrors = buildHumanErrors( validationSchema, validationErrorsArr ).join(' ')
+        return
+    } else {
+        validationErrors = ''
+    }
+
+    createNewGame(inputGameData)
+        .then(() => {
+            resetForm()
+            showSuccessMessage(5)
+        })
+        .catch((error) => {
+            validationErrors = error.message
+        })
 }
 
 const getGameTypesArrayForDD = (gameTypes) => {
@@ -65,13 +104,26 @@ const handleGameTypeDDClick = ({value}) => {
 }
 
 $: usersForDd = getUsersArrayForDD($usersStore.users)
+
+onDestroy( () => {
+    clearTimeout(clearSuccessMessageTimer)
+    clearSuccessMessageTimer = null
+})
 </script>
+
+<svelte:window bind:scrollY={scrollY}/>
 
 <h1 class="text-center">Submit Game</h1>
 
 
 <form class="styled-form" on:submit={handleSubmit}>
   <ul>
+
+      {#if message}
+          <li>
+              <p class="styled-form__message styled-form__message--success">{message}</p>
+          </li>
+      {/if}
 
     <li class="styled-form__row">
         <label class="styled-form__label" for="gameType">Game Type</label>
@@ -80,6 +132,7 @@ $: usersForDd = getUsersArrayForDD($usersStore.users)
           textAlign="left"
           values={getGameTypesArrayForDD($gamesStore.gameTypes)}
           onClickCb={handleGameTypeDDClick}
+          selectedValueId={gameTypeId}
         />
         <span class="styled-form__placeholder">Select game type from the list</span>
     </li>
@@ -102,6 +155,7 @@ $: usersForDd = getUsersArrayForDD($usersStore.users)
           textAlign="left"
           values={usersForDd}
           onClickCb={handlePlayer1DDClick}
+          selectedValueId={player1Id}
         />
         <span class="styled-form__placeholder">Select player 1 from the list</span>
     </li>
@@ -128,6 +182,7 @@ $: usersForDd = getUsersArrayForDD($usersStore.users)
           textAlign="left"
           values={usersForDd}
           onClickCb={handlePlayer2DDClick}
+          selectedValueId={player2Id}
         />
         <span class="styled-form__placeholder">Select player 2 from the list</span>
     </li>
@@ -146,6 +201,12 @@ $: usersForDd = getUsersArrayForDD($usersStore.users)
         />
         <span class="styled-form__placeholder">Enter player 2 score</span>
     </li>
+
+    {#if validationErrors}
+      <li>
+          <p class="styled-form__message styled-form__message--error">{validationErrors}</p>
+      </li>
+    {/if}
 
     <li class="styled-form__row">
         <input
@@ -225,5 +286,16 @@ $: usersForDd = getUsersArrayForDD($usersStore.users)
   cursor: pointer;
   background-color: var(--color-emphasize);
   color:#fff;
+}
+
+.styled-form__message {
+    margin: 0;
+    text-align: center;
+}
+.styled-form__message--success {
+    color: var(--color-success);
+}
+.styled-form__message--error {
+    color: var(--color-error);
 }
 </style>

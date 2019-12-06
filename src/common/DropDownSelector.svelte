@@ -1,14 +1,14 @@
 <script>
-import { getButtonClass } from './DropDownSelector.helper'
 /**
-can work with just an array of strings/numbers
-or with array of objects { display, value }
-**/
-
+    can work with just an array of strings/numbers
+    or with array of objects { display, value }
+ **/
+import { getButtonClass, getSelectButtonText } from './DropDownSelector.helper'
 export let values = []
 export let onClickCb
 export let isTransparent = false
 export let textAlign = 'center' // align can be left/right/center
+export let selectedValueId = null
 
 let isListVisible = false
 let selectedValue = null
@@ -33,6 +33,7 @@ const handleButtonClick = (value) => {
   }
 }
 
+$: buttonText = getSelectButtonText(values, selectedValueId)
 $: getIsListVisibleClass = () => {
   return (isListVisible) ? '' : 'hidden'
 }
@@ -44,11 +45,7 @@ $: getIsListVisibleClass = () => {
     type="button"
     on:click={handleSelectButtonClick}
   >
-    {
-      (selectedValue && selectedValue.display) ||
-      selectedValue ||
-      'Select...'
-    }
+    { buttonText }
   </button>
 
   <ul class={getIsListVisibleClass()}>

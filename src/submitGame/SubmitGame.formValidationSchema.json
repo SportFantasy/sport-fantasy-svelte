@@ -1,0 +1,71 @@
+{
+    "definitions": {},
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "submitGameFormSchema",
+    "type": "object",
+    "title": "Submit Game Schema",
+    "required": [
+        "gameTypeId",
+        "player1Id",
+        "player2Id",
+        "player1Score",
+        "player2Score",
+        "datePlayed"
+    ],
+    "properties": {
+        "gameTypeId": {
+            "$id": "#/properties/gameTypeId",
+            "type": "string",
+            "title": "The Game Type",
+            "examples": [
+                "HvfeS37yzwUIepzv5Y3Y"
+            ],
+            "pattern": "^(.*)$"
+        },
+        "player1Id": {
+            "$id": "#/properties/player1Id",
+            "type": "string",
+            "title": "The Player 1",
+            "examples": [
+                "3ZtPS57zJ4jVuLw7UALs"
+            ],
+            "pattern": "^(.*)$"
+        },
+        "player2Id": {
+            "$id": "#/properties/player2Id",
+            "type": "string",
+            "title": "The Player 2",
+            "examples": [
+                "CHdvy1KGqVWOMeGa9ejQ"
+            ],
+            "pattern": "^(.*)$"
+        },
+        "player1Score": {
+            "$id": "#/properties/player1Score",
+            "type": "integer",
+            "title": "The Player 1 Score",
+            "default": 0,
+            "maxLength": 100,
+            "examples": [
+                2
+            ]
+        },
+        "player2Score": {
+            "$id": "#/properties/player2Score",
+            "type": "integer",
+            "title": "The Player 2 Score",
+            "maxLength": 100,
+            "examples": [
+                4
+            ]
+        },
+        "datePlayed": {
+            "$id": "#/properties/datePlayed",
+            "type": "integer",
+            "title": "The Date Played",
+            "examples": [
+                1575327600000
+            ]
+        }
+    }
+}

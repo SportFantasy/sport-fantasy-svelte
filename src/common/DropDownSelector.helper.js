@@ -22,3 +22,16 @@ export const getButtonClass = (isTransparent, textAlign) => {
 
   return className.join(' ')
 }
+
+export const getSelectButtonText = (values, selectedValueId) => {
+    let buttonText = 'Select...'
+    values.forEach( value => {
+        if (value === selectedValueId) {
+            buttonText = value
+        }
+        if (value.value === selectedValueId) {
+            buttonText = value.display
+        }
+    } )
+    return buttonText
+}
