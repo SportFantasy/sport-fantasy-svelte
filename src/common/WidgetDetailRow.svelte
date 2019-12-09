@@ -17,6 +17,8 @@
 .detail__key,
 .detail__value {
   width: 50%;
+  word-break: break-all;
+  padding: 5px 0;
 }
 .detail__key {
   color: #111;

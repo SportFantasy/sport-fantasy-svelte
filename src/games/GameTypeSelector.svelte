@@ -74,7 +74,7 @@
 </style>
 
 <div class="game-selector-wrapper justify-content-space-around flex-row">
-  <div class="w-30 justify-content-space-around flex-row">
+  <div class="w-50 justify-content-space-around flex-row">
     <a use:link href={getLink()} class={getActiveButtonClass(undefined, 'all')}>
       <img src={getImageSrc(undefined, 'all')} alt="sport image" />
     </a>

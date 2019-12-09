@@ -1,53 +1,71 @@
 <script>
-import { link } from "svelte-spa-router";
-export let playerInfo={};
+  import { link } from "svelte-spa-router";
+  export let playerInfo = {};
 </script>
 
 <style>
-.card {
-  box-shadow: none;
-  max-width: 300px;
-  text-align: center;
-  background-color: transparent;
-  padding-top: 50px;
-}
+  .card {
+    box-shadow: none;
+    max-width: 300px;
+    text-align: center;
+    background-color: transparent;
+    padding-top: 20px;
+    width: 120px;
+    height: 250px;
+  }
+  .card img{
+    height: 70px;
+    width: 70px;
+    align-self: center;
+  }
+  .card-user-info {
+    height: 100px;
+  }
+  .card-user-info div {
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    height: 80px;
+    /* text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap; */
+  }
 
-.card h1 {
-  text-transform: uppercase;
-  padding-bottom: 10px;
-}
+  .title {
+    color: grey;
+    font-size: 18px;
+  }
 
-.title {
-  color: grey;
-  font-size: 18px;
-}
+  .user-info-button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: var(--palette-color-1);
+    text-align: center;
+    cursor: pointer;
+    font-size: 18px;
+  }
 
-.user-info-button {
-  border: none;
-  outline: 0;
-  display: inline-block;
-  padding: 8px;
-  color: white;
-  background-color: #000;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-  font-size: 18px;
-}
+  a {
+    text-decoration: none;
+    font-size: 22px;
+    color: black;
+  }
 
-a {
-  text-decoration: none;
-  font-size: 22px;
-  color: black;
-}
-
-button:hover, a:hover {
-  opacity: 0.7;
-}
+  button:hover,
+  a:hover {
+    opacity: 0.7;
+  }
 </style>
 
-<div class="card">
-  <img src="images/football-icon.png" alt="John">
-  <h1>{playerInfo.displayName}</h1>
-  <a class="user-info-button" href="/user/{playerInfo.id}" use:link>User Info</a>
+<div class="card flex-column justify-content-space-around">
+  <img src="images/football-icon.png" alt="John" />
+  <div class="card-user-info flex-column justify-content-space-around">
+    <div>{playerInfo.displayName}</div>
+    <a class="user-info-button" href="/user/{playerInfo.id}" use:link>
+      User Info
+    </a>
+  </div>
+
 </div>

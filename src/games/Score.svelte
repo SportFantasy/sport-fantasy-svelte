@@ -13,8 +13,8 @@
     flex-direction: row;
     width: 100%;
     margin: 20px 0;
+    padding: 20px
   }
-  .score-content {}
   .score-header {
     text-transform: uppercase;
     font-size: 40px;
@@ -22,11 +22,14 @@
     text-align: center;
     padding: 5px;
   }
+  .score-content {
+    min-width: 400px;
+  }
 </style>
 
 {#if games.length}
   <div class="score-wrapper flex-row justify-content-space-around">
-    <div class="score-content flex-row justify-content-space-around">
+    <div class="score-content flex-row justify-content-space-around w-50">
       <div class="flex-column w-100">
         {#if routeParams.gameTypeId && routeParams.gameTypeId !== 'all'}
           <div class="text-align-center score-header">

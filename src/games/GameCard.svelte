@@ -24,10 +24,9 @@
     padding: 5px;
   }
   .vs {
-    font-size: 50px;
-  }
-  .f-s-40 {
-    font-size: 40px;
+    font-size: 30px;
+    font-family: serif;
+    font-style: italic;
   }
 
   .player--winner {
@@ -37,12 +36,11 @@
   }
 
   .score-card {
-    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
     background: white;
-    margin: 20px;
+    margin: 20px 0;
     border-radius: 8px;
   }
-
 </style>
 
 <div class="score-card w-100">
@@ -53,10 +51,18 @@
     </div>
     <PlayerCard playerInfo={game.player2} />
   </div>
-  <div class="text-align-center f-s-40">Score {game.player1Score} : {game.player2Score}</div>
+  <div class="text-align-center f-s-25">
+    <div>Score</div>
+    {game.player1Score} : {game.player2Score}
+  </div>
   {#if game.winner}
-  <div class="player player--winner text-align-center f-s-40">Winner: {game.winner.displayName}</div>
+    <div class="player player--winner text-align-center f-s-25">
+      <div>Winner</div>
+      {game.winner.displayName}
+    </div>
   {:else}
-  <div class="player player--winner text-align-center f-s-40">Result: {game.result}</div>
+    <div class="player player--winner text-align-center f-s-25">
+      Result: {game.result}
+    </div>
   {/if}
 </div>
