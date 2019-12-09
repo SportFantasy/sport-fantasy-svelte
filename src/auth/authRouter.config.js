@@ -8,6 +8,7 @@ import Confirm from '../confirm/Confirm.svelte'
 
 const AUTH_ROUTER_CONFIG = {
   '/': Home,
+  '/home/:topResultSlug': Home,
   '/games': Games,
   '/games/:gameTypeId': Games,
   '/submit-game': SubmitGame,

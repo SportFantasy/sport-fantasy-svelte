@@ -15,6 +15,7 @@ import {
     getGamesByGameTypeId,
     filterOutUnconfirmedGames,
 } from './games.store.helper'
+import _filter from 'lodash/filter';
 
 
 const _fetchAllGamesAndUsersData = () => {
@@ -81,4 +82,98 @@ export const getConfirmedGamesByGameTypeId = (selectedGameTypeId) => {
 export const reloadAllDataAndGetConfirmedGamesByGameTypeId = (selectedGameTypeId) => {
     return fetchAndInitGamesData()
       .then( () => getConfirmedGamesByGameTypeId(selectedGameTypeId) )
+}
+
+
+
+const getGamesByUserId = (games, userId) => {
+    let filteredGames = {}
+
+    const foundGames = _filter(games, (game) => {
+        return (
+            (game.player1Id === userId) ||
+            (game.player2Id === userId)
+        )
+    })
+    if (foundGames && foundGames.length) {
+        foundGames.forEach(foundGame => {
+            filteredGames[foundGame.id] = foundGame
+        })
+    }
+
+    return filteredGames
+}
+
+
+
+const getSortedGamesByGameTypeId = (gameTypes, games) => {
+    let result = {}
+
+    for (let gameTypeId in gameTypes) {
+        const foundGames = _filter(games, { gameTypeId })
+        result[gameTypeId] = foundGames
+    }
+
+    return result
+}
+
+const addGamesByTypeToUser = (user, games, gameTypes) => {
+    const userId = user.id
+    const userGames = getGamesByUserId(games, userId)
+    const sortedGames = getSortedGamesByGameTypeId(gameTypes, userGames)
+
+    let sortedGamesWithTotalScore = {}
+    for (let gameTypeId in sortedGames) {
+        const typeGames = sortedGames[gameTypeId]
+        const totalScore = getSumScoreFromGamesByUserId(typeGames, userId)
+        sortedGamesWithTotalScore[gameTypeId] = {
+            games: typeGames,
+            totalScore,
+        }
+    }
+
+    return {
+        ...user,
+        sortedGames: sortedGamesWithTotalScore,
+    }
+}
+
+const getSumScoreFromGamesByUserId = (games = {}, userId) => {
+    const gamesArr = Object.values(games)
+    const totalScore = gamesArr.reduce( (total, game) => {
+        let relevantScore
+        if (game.player1Id === userId) {
+            relevantScore = game.player1Score
+        }
+        if (game.player2Id === userId) {
+            relevantScore = game.player2Score
+        }
+        return total + relevantScore
+    }, 0 )
+
+    return totalScore
+}
+
+const getTopScoresPerGameTypes = (usersWithSortedGames) => {
+    //TODO
+}
+
+export const getTopScores = () => {
+    let result = {}
+
+    const { users } = get(usersStore)
+    const { games, gameTypes } = get(gamesStore)
+    const confirmedGames = filterOutUnconfirmedGames(games)
+
+    for (let userId in users) {
+        const user = users[userId]
+        const userWithGames = addGamesByTypeToUser(user, confirmedGames, gameTypes)
+        result[userId] = userWithGames
+    }
+
+
+    const topScoresPerGameType = getTopScoresPerGameTypes(result)
+
+
+    return result
 }
