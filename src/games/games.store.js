@@ -7,12 +7,15 @@ const INITIAL_STORE = {
 }
 
 const updateSingleGame = (games, singleGame) => {
+  console.log(games)
+  console.log(singleGame)
   let newGames = { ...games }
   const gameId = singleGame.id
   newGames[gameId] = {
     ...newGames[gameId],
     ...singleGame,
   }
+  console.log(newGames)
   return newGames
 }
 

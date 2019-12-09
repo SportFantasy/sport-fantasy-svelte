@@ -173,14 +173,50 @@ export const getGamesByUserId = (games, userId) => {
   return filteredGames
 }
 
-export const getUnconfirmedGamesByUserId = (games, userId) => {
+/*export const getUnconfirmedGamesByUserId = (games, userId) => {
   const userGames = getGamesByUserId(games, userId)
   const filteredGames = filterOutConfirmedGames(userGames)
+  return filteredGames
+}*/
+
+/*export const getConfirmedGamesByUserId = (games, userId) => {
+  const userGames = getGamesByUserId(games, userId)
+  const filteredGames = filterOutUnconfirmedGames(userGames)
+  return filteredGames
+}*/
+
+export const getUnconfirmedGamesByUserId = (games, userId) => {
+  let filteredGames = {}
+
+  const foundGames = _filter(games, (game) => {
+    return (
+      ( (game.player1Id === userId) && !game.isConfirmedPlayer1 ) ||
+      ( (game.player2Id === userId) && !game.isConfirmedPlayer2 )
+    )
+  })
+  if (foundGames && foundGames.length) {
+    foundGames.forEach(foundGame => {
+      filteredGames[foundGame.id] = foundGame
+    })
+  }
+
   return filteredGames
 }
 
 export const getConfirmedGamesByUserId = (games, userId) => {
-  const userGames = getGamesByUserId(games, userId)
-  const filteredGames = filterOutUnconfirmedGames(userGames)
+  let filteredGames = {}
+
+  const foundGames = _filter(games, (game) => {
+    return (
+      ( (game.player1Id === userId) && game.isConfirmedPlayer1 ) ||
+      ( (game.player2Id === userId) && game.isConfirmedPlayer2 )
+    )
+  })
+  if (foundGames && foundGames.length) {
+    foundGames.forEach(foundGame => {
+      filteredGames[foundGame.id] = foundGame
+    })
+  }
+
   return filteredGames
 }

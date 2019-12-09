@@ -37,6 +37,7 @@ export const fetchAndInitGamesData = () => {
 }
 
 export const confirmGameByPlayerId = (gameId, gamePlayer1Id, gamePlayer2Id, playerId) => {
+  console.log({gameId, gamePlayer1Id, gamePlayer2Id, playerId})
     let playerNo
     if (gamePlayer1Id === playerId) {
         playerNo = 1
@@ -47,6 +48,10 @@ export const confirmGameByPlayerId = (gameId, gamePlayer1Id, gamePlayer2Id, play
 
     return confirmSinglePlayerGame(gameId, playerNo)
         .then(() => getGameById(gameId))
+        .then((game) => {
+          console.log(game)
+          return game
+        })
         .then(gamesStore.updateSingleGame)
 }
 

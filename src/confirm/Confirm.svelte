@@ -1,15 +1,18 @@
 <script>
   import { getShortDisplayDate } from "../util/date.helper";
   import { getLoggedUser } from "../auth/auth.service";
+  import { gamesStore } from '../games/games.store'
+  import { getUnconfirmedGamesByUserId } from '../games/games.store.helper'
   import {
     confirmGameByPlayerId,
     getUnconfirmedGamesArrByUserId
   } from "../games/games.service";
   import GameCard from "../games/GameCard.svelte";
 
+
   const loggedUserId = getLoggedUser().uid;
 
-  $: unConfirmedGames = getUnconfirmedGamesArrByUserId(loggedUserId);
+  $: unConfirmedGames = Object.values(getUnconfirmedGamesByUserId($gamesStore.games, loggedUserId))
 
   const handleConfirmButtonClick = game => {
     confirmGameByPlayerId(game.id, game.player1Id, game.player2Id, loggedUserId)
