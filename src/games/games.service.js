@@ -77,3 +77,8 @@ export const getConfirmedGamesByGameTypeId = (selectedGameTypeId) => {
     );
     return Object.values(filteredGames)
 }
+
+export const reloadAllDataAndGetConfirmedGamesByGameTypeId = (selectedGameTypeId) => {
+    return fetchAndInitGamesData()
+      .then( () => getConfirmedGamesByGameTypeId(selectedGameTypeId) )
+}
