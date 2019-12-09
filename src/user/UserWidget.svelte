@@ -24,6 +24,7 @@ export let unConfirmedGamesNo = null
   border: 2px solid #555;
   padding: 1em;
   margin-top: 5vh;
+  width: 500px;
 }
 
 .user-widget__title {

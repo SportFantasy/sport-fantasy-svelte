@@ -28,7 +28,6 @@
 .f-s-40 {
     font-size: 40px;
 }
-
 .flex-row {
 	display: flex;
 	flex-direction: row;
@@ -36,6 +35,9 @@
 .flex-column {
 	display: flex;
 	flex-direction: column;
+}
+.flex-wrap {
+    flex-wrap: wrap;
 }
 .justify-content-space-around {
 	justify-content: space-around;

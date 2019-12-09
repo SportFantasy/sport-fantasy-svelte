@@ -1,71 +1,80 @@
 <script>
-  import { onMount, beforeUpdate } from 'svelte'
+  import { onMount, beforeUpdate } from "svelte";
 
-  import { getLoggedUser } from '../auth/auth.service'
+  import { getLoggedUser } from "../auth/auth.service";
   import {
-      getConfirmedGamesArrByUserId,
-      getUnconfirmedGamesArrByUserId,
-  } from '../games/games.service'
-  import { fetchUserDataById } from './users.service'
+    getConfirmedGamesArrByUserId,
+    getUnconfirmedGamesArrByUserId
+  } from "../games/games.service";
+  import { fetchUserDataById } from "./users.service";
 
-  import UserWidget from './UserWidget.svelte'
-  import Spinner from '../common/Spinner.svelte'
-  import GameCard from '../games/GameCard.svelte'
+  import UserWidget from "./UserWidget.svelte";
+  import Spinner from "../common/Spinner.svelte";
+  import GameCard from "../games/GameCard.svelte";
 
-  export let params = {}
+  export let params = {};
 
-  let scrollY = 0
-  let user = null
-  let isLoading = true
-  let errorMessage = ''
-  let confirmedGamesArr = []
-  let unConfirmedGamesArr = []
-  let confirmedGamesNo = null
-  let unConfirmedGamesNo = null
+  let scrollY = 0;
+  let user = null;
+  let isLoading = true;
+  let errorMessage = "";
+  let confirmedGamesArr = [];
+  let unConfirmedGamesArr = [];
+  let confirmedGamesNo = null;
+  let unConfirmedGamesNo = null;
 
-  const loadUserData = (userId) => {
-      isLoading = true
-      user = null
+  const loadUserData = userId => {
+    isLoading = true;
+    user = null;
 
-      return fetchUserDataById(userId)
-          .then((userData) => {
-              user = userData
-              isLoading = false
-              errorMessage = ''
-              scrollY = 0
-          })
-          .catch((error) => {
-              console.log(error)
-              isLoading = false
-              errorMessage = error.message
-              scrollY = 0
-          })
-  }
+    return fetchUserDataById(userId)
+      .then(userData => {
+        user = userData;
+        isLoading = false;
+        errorMessage = "";
+        scrollY = 0;
+      })
+      .catch(error => {
+        console.log(error);
+        isLoading = false;
+        errorMessage = error.message;
+        scrollY = 0;
+      });
+  };
 
   $: {
-      confirmedGamesArr = getConfirmedGamesArrByUserId( (params.userId || getLoggedUser().uid) )
-      unConfirmedGamesArr = getUnconfirmedGamesArrByUserId( (params.userId || getLoggedUser().uid) )
-      confirmedGamesNo = confirmedGamesArr.length
-      unConfirmedGamesNo = unConfirmedGamesArr.length
+    confirmedGamesArr = getConfirmedGamesArrByUserId(
+      params.userId || getLoggedUser().uid
+    );
+    unConfirmedGamesArr = getUnconfirmedGamesArrByUserId(
+      params.userId || getLoggedUser().uid
+    );
+    confirmedGamesNo = confirmedGamesArr.length;
+    unConfirmedGamesNo = unConfirmedGamesArr.length;
   }
 
   onMount(() => {
-      const userId = params.userId || getLoggedUser().uid
-      loadUserData(userId)
-  })
+    const userId = params.userId || getLoggedUser().uid;
+    loadUserData(userId);
+  });
 
   beforeUpdate(() => {
-      const requestedUserId = (params.userId || getLoggedUser().uid)
-      if (
-          (user && user.id) &&
-          (user.id !== requestedUserId)
-      ) {
-          loadUserData(requestedUserId)
-      }
-  })
+    const requestedUserId = params.userId || getLoggedUser().uid;
+    if (user && user.id && user.id !== requestedUserId) {
+      loadUserData(requestedUserId);
+    }
+  });
 </script>
 
-<svelte:window bind:scrollY={scrollY}/>
+<style>
+  .games-wrapper {
+    padding-top: 3em;
+    margin: 10px;
+    width: 450px;
+  }
+</style>
+
+<svelte:window bind:scrollY />
 
 <div class="flex-row justify-content-space-around">
   <div class="flex-column justify-content-space-around">
@@ -74,39 +83,32 @@
     {/if}
 
     {#if user}
-      <UserWidget
-        {user}
-        {confirmedGamesNo}
-        {unConfirmedGamesNo}
-      />
+      <div class="flex-row justify-content-space-around">
+        <UserWidget {user} {confirmedGamesNo} {unConfirmedGamesNo} />
+      </div>
     {/if}
+    <div class="flex-row justify-content-space-around flex-wrap">
+      {#if confirmedGamesNo}
+        <article class="games-wrapper">
+          <h1 class="text-center">Confirmed Games</h1>
+          {#each confirmedGamesArr as game}
+            <GameCard {game} />
+          {/each}
+        </article>
+      {/if}
 
-    {#if confirmedGamesNo}
-      <article class="games-wrapper">
-        <h1>Confirmed Games</h1>
-        {#each confirmedGamesArr as game}
-          <GameCard {game} />
-        {/each}
-      </article>
-    {/if}
-
-    {#if unConfirmedGamesNo}
-      <article class="games-wrapper">
-        <h1>Unconfirmed Games</h1>
-        {#each unConfirmedGamesArr as game}
-          <GameCard {game} />
-        {/each}
-      </article>
-    {/if}
+      {#if unConfirmedGamesNo}
+        <article class="games-wrapper">
+          <h1 class="text-center">Unconfirmed Games</h1>
+          {#each unConfirmedGamesArr as game}
+            <GameCard {game} />
+          {/each}
+        </article>
+      {/if}
+    </div>
 
     {#if errorMessage}
       <p>{errorMessage}</p>
     {/if}
   </div>
 </div>
-
-<style>
-.games-wrapper {
-  padding-top: 3em;
-}
-</style>
