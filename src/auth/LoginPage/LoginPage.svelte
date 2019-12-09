@@ -1,19 +1,21 @@
 <script>
     import { authStore } from '../auth.store'
     import { push } from 'svelte-spa-router'
+    import { googleSignInWithPopup } from '../auth.service'
+    import { extractFriendlyErrorMessage } from '../../util/messages.helper'
 
     import Spinner from '../../common/Spinner.svelte'
-    import { googleSignInWithPopup } from '../auth.service'
 
 
     let errorMessage = ''
+
     $: isSpinnerVisible = $authStore.isAuthInProgress
 
     const handleLoginClick = () => {
         errorMessage = ''
         googleSignInWithPopup()
-            .then(() => push('/'))
-            .catch((error) => errorMessage = error.message)
+            .then( () => push('/') )
+            .catch( (error) => errorMessage = extractFriendlyErrorMessage(error) )
     }
 
 </script>
