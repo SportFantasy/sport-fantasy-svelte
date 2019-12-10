@@ -87,7 +87,7 @@
     <img src="images/football-icon.png" alt="John"/>
     <div class="card-user-info flex-column justify-content-space-around">
         <div class={getPlayerNameClass()} title={playerInfo.email}>{playerInfo.displayName}</div>
-        <a class="user-info-button" href="/user/{playerInfo.id}" use:link>
+        <a class="user-info-button" href="/profile/{playerInfo.id}" use:link>
             User Info
         </a>
 

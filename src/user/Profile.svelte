@@ -27,6 +27,7 @@
     let confirmedGamesNo = null
     let unConfirmedGamesNo = null
     let loggedUserId
+    let titlePrefix = ''
 
     const loadUserData = userId => {
         isLoading = true
@@ -65,8 +66,17 @@
         }
     })
 
+    const getTitlePrefix = (loggedUserId, user) => {
+        if ( loggedUserId === (user && user.id) ) {
+            return 'My '
+        }
+        return ''
+    }
+
     $: {
         loggedUserId = getLoggedUser().uid
+
+        titlePrefix = getTitlePrefix(loggedUserId, user)
 
         confirmedGamesArr = getConfirmedGamesArrByUserId(
                 $gamesStore.games,
@@ -121,7 +131,7 @@
         <div class="flex-row justify-content-space-around flex-wrap">
             {#if confirmedGamesNo}
                 <article class="games-wrapper" transition:fade>
-                    <h1 class="text-center">My Confirmed Games</h1>
+                    <h1 class="text-center">{titlePrefix}Confirmed Games</h1>
                     {#each confirmedGamesArr as game (game.id)}
                         <div
                             class="game-holder"
@@ -136,7 +146,7 @@
 
             {#if unConfirmedGamesNo}
                 <article class="games-wrapper" transition:fade>
-                    <h1 class="text-center">My Unconfirmed Games</h1>
+                    <h1 class="text-center">{titlePrefix}Unconfirmed Games</h1>
                     {#each unConfirmedGamesArr as game (game.id)}
                         <div
                             class="game-holder"

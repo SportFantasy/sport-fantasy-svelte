@@ -17,7 +17,7 @@
           <a use:link href="/submit-game">Submit Game</a>
         </li>
         <li>
-          <a use:link href="/user">User</a>
+          <a use:link href="/profile">Profile</a>
         </li>
         <li>
           <a use:link href="/confirm">Confirm</a>
