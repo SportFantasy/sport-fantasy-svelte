@@ -56,14 +56,12 @@ export const confirmGameByPlayerId = (gameId, gamePlayer1Id, gamePlayer2Id, play
         .then(gamesStore.updateSingleGame)
 }
 
-export const getConfirmedGamesArrByUserId = (userId) => {
-    const currentGames = get(gamesStore).games
+export const getConfirmedGamesArrByUserId = (currentGames, userId) => {
     const confirmedGamesObject = getConfirmedGamesByUserId(currentGames, userId)
     return Object.values(confirmedGamesObject)
 }
 
-export const getUnconfirmedGamesArrByUserId = (userId) => {
-    const currentGames = get(gamesStore).games
+export const getUnconfirmedGamesArrByUserId = (currentGames, userId) => {
     const unconfirmedGamesObject = getUnconfirmedGamesByUserId(currentGames, userId)
     return Object.values(unconfirmedGamesObject)
 }

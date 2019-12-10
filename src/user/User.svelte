@@ -2,6 +2,7 @@
     import { onMount, beforeUpdate } from 'svelte'
 
     import { getLoggedUser } from '../auth/auth.service'
+    import { gamesStore } from '../games/games.store'
     import {
         getConfirmedGamesArrByUserId,
         getUnconfirmedGamesArrByUserId,
@@ -22,6 +23,7 @@
     let unConfirmedGamesArr = []
     let confirmedGamesNo = null
     let unConfirmedGamesNo = null
+    let loggedUserId
 
     const loadUserData = userId => {
         isLoading = true
@@ -43,11 +45,15 @@
     }
 
     $: {
+        loggedUserId = getLoggedUser().uid
+
         confirmedGamesArr = getConfirmedGamesArrByUserId(
-                params.userId || getLoggedUser().uid,
+                $gamesStore.games,
+                params.userId || loggedUserId,
         )
         unConfirmedGamesArr = getUnconfirmedGamesArrByUserId(
-                params.userId || getLoggedUser().uid,
+                $gamesStore.games,
+                params.userId || loggedUserId,
         )
         confirmedGamesNo = confirmedGamesArr.length
         unConfirmedGamesNo = unConfirmedGamesArr.length
@@ -59,7 +65,7 @@
     } )
 
     beforeUpdate( () => {
-        const requestedUserId = params.userId || getLoggedUser().uid
+        const requestedUserId = params.userId || loggedUserId
         if (user && user.id && user.id !== requestedUserId) {
             loadUserData( requestedUserId )
         }
@@ -97,7 +103,7 @@
                     <h1 class="text-center">My Confirmed Games</h1>
                     {#each confirmedGamesArr as game (game.id)}
                         <div class="game-holder">
-                            <GameCard {game}/>
+                            <GameCard {game} showConfirm loggedUserId={loggedUserId} />
                         </div>
                     {/each}
                 </article>
@@ -108,7 +114,7 @@
                     <h1 class="text-center">My Unconfirmed Games</h1>
                     {#each unConfirmedGamesArr as game (game.id)}
                         <div class="game-holder">
-                            <GameCard {game}/>
+                            <GameCard {game} showConfirm loggedUserId={loggedUserId} />
                         </div>
                     {/each}
                 </article>

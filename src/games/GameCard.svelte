@@ -1,8 +1,10 @@
 <script>
     import PlayerCard from './PlayerCard.svelte'
+    import { confirmGameByPlayerId } from '../games/games.service'
 
     export let game = {}
-
+    export let showConfirm = false
+    export let loggedUserId = null
 
     const getIsPlayerWinner = (playerId, game) => {
         let result = false
@@ -10,6 +12,20 @@
             result = true
         }
         return result
+    }
+
+    const isConfirmVisible = (isPlayerConfirmed, currentPlayerId, loggedUserId, showConfirm) => {
+        return !!(
+            showConfirm &&
+            !isPlayerConfirmed &&
+            (currentPlayerId === loggedUserId)
+        )
+    }
+
+    const handlePlayerConfirm = (playerId, game) => {
+        confirmGameByPlayerId( game.id, game.player1Id, game.player2Id, playerId )
+            .then( console.log )
+            .catch( console.log )
     }
 </script>
 
@@ -56,11 +72,21 @@
 
 <div class="score-card w-100">
     <div class="flex-row justify-content-space-around">
-        <PlayerCard playerInfo={game.player1} isWinner={ getIsPlayerWinner(game.player1Id, game) }/>
+        <PlayerCard
+                playerInfo={game.player1}
+                confirmCb={handlePlayerConfirm}
+                isWinner={ getIsPlayerWinner(game.player1Id, game) }
+                isConfirmVisible={isConfirmVisible(game.isConfirmedPlayer1, game.player1Id, loggedUserId, showConfirm)}
+        />
         <div class="flex-column justify-content-space-around">
             <div class="vs">VS</div>
         </div>
-        <PlayerCard playerInfo={game.player2} isWinner={ getIsPlayerWinner(game.player2Id, game) }/>
+        <PlayerCard
+            playerInfo={game.player2}
+            confirmCb={(playerId) => handlePlayerConfirm(playerId, game)}
+            isWinner={ getIsPlayerWinner(game.player2Id, game) }
+            isConfirmVisible={isConfirmVisible(game.isConfirmedPlayer2, game.player2Id, loggedUserId, showConfirm)}
+        />
     </div>
     <div class="text-align-center f-s-25">
         <div>Score</div>
