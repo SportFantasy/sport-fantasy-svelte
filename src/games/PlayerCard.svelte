@@ -1,6 +1,16 @@
 <script>
-  import { link } from "svelte-spa-router";
-  export let playerInfo = {};
+    import { link } from "svelte-spa-router"
+
+    export let playerInfo = {}
+    export let isWinner = false
+
+    const getPlayerNameClass = () => {
+        if (isWinner) {
+            return 'player player--winner'
+        } else {
+            return 'player'
+        }
+    }
 </script>
 
 <style>
@@ -25,14 +35,6 @@
     text-transform: uppercase;
     padding-bottom: 10px;
     height: 80px;
-    /* text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap; */
-  }
-
-  .title {
-    color: grey;
-    font-size: 18px;
   }
 
   .user-info-button {
@@ -57,12 +59,20 @@
   a:hover {
     opacity: 0.7;
   }
+
+    .player--winner {
+        color: var(--color-success);
+    }
+    .player--winner:before {
+        content: '*';
+        color: var(--color-emphasize)
+    }
 </style>
 
 <div class="card flex-column justify-content-space-around">
   <img src="images/football-icon.png" alt="John" />
   <div class="card-user-info flex-column justify-content-space-around">
-    <div>{playerInfo.displayName}</div>
+    <div class={getPlayerNameClass()} title={playerInfo.email}>{playerInfo.displayName}</div>
     <a class="user-info-button" href="/user/{playerInfo.id}" use:link>
       User Info
     </a>

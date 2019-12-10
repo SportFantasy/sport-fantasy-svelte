@@ -90,7 +90,7 @@
     <div class="flex-row justify-content-space-around flex-wrap">
       {#if confirmedGamesNo}
         <article class="games-wrapper">
-          <h1 class="text-center">Confirmed Games</h1>
+          <h1 class="text-center">My Confirmed Games</h1>
           {#each confirmedGamesArr as game (game.id)}
             <GameCard {game} />
           {/each}
@@ -99,7 +99,7 @@
 
       {#if unConfirmedGamesNo}
         <article class="games-wrapper">
-          <h1 class="text-center">Unconfirmed Games</h1>
+          <h1 class="text-center">My Unconfirmed Games</h1>
           {#each unConfirmedGamesArr as game (game.id)}
             <GameCard {game} />
           {/each}
