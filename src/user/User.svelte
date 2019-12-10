@@ -1,5 +1,6 @@
 <script>
     import { onMount, beforeUpdate } from 'svelte'
+    import { fade } from 'svelte/transition'
 
     import { getLoggedUser } from '../auth/auth.service'
     import { gamesStore } from '../games/games.store'
@@ -93,13 +94,13 @@
         {/if}
 
         {#if user}
-            <div class="flex-row justify-content-space-around">
+            <div class="flex-row justify-content-space-around" transition:fade>
                 <UserWidget {user} {confirmedGamesNo} {unConfirmedGamesNo}/>
             </div>
         {/if}
         <div class="flex-row justify-content-space-around flex-wrap">
             {#if confirmedGamesNo}
-                <article class="games-wrapper">
+                <article class="games-wrapper" transition:fade>
                     <h1 class="text-center">My Confirmed Games</h1>
                     {#each confirmedGamesArr as game (game.id)}
                         <div class="game-holder">
@@ -110,7 +111,7 @@
             {/if}
 
             {#if unConfirmedGamesNo}
-                <article class="games-wrapper">
+                <article class="games-wrapper" transition:fade>
                     <h1 class="text-center">My Unconfirmed Games</h1>
                     {#each unConfirmedGamesArr as game (game.id)}
                         <div class="game-holder">

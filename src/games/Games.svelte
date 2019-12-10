@@ -1,4 +1,5 @@
 <script>
+  import { fade } from 'svelte/transition'
   import GameTypeSelector from "./GameTypeSelector.svelte";
   import Score from "./Score.svelte";
   import Spinner from '../common/Spinner.svelte'
@@ -28,7 +29,7 @@
   activeGameTypeId={selectedGameTypeId}
 />
 
-<section>
+<section transition:fade>
 {#await reloadAllDataAndGetConfirmedGamesByGameTypeId(selectedGameTypeId)}
   <Spinner />
 {:then games}

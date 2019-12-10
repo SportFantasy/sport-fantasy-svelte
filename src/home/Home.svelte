@@ -1,4 +1,5 @@
 <script>
+    import { fade } from 'svelte/transition'
     import { location } from 'svelte-spa-router'
     import { authStore } from '../auth/auth.store'
     import TopResultSelector from './TopResultSelector.svelte'
@@ -30,8 +31,10 @@
     <TopResultSelector selectedTopResultSlug={slug} />
 
     {#if slug}
+    <div transition:fade|local>
         <h2>{getTopResultStringFromSlug(TOP_TYPES, slug)}</h2>
         <TopResult topCount={3} topResultSlug={slug} />
+    </div>
     {/if}
 </section>
 

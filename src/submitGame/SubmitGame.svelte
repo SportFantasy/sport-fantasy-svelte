@@ -1,5 +1,6 @@
 <script>
-    import { onDestroy } from 'svelte'
+import { fade } from 'svelte/transition'
+import { onDestroy } from 'svelte'
 import { createNewGame } from '../common/db/games'
 import { gamesStore } from '../games/games.store'
 import { usersStore } from '../user/users.store'
@@ -118,7 +119,7 @@ onDestroy( () => {
 <h1 class="text-center">Submit Game</h1>
 
 
-<form class="styled-form" on:submit={handleSubmit}>
+<form class="styled-form" on:submit={handleSubmit} transition:fade>
   <ul>
 
       {#if message}

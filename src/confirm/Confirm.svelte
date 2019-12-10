@@ -1,4 +1,5 @@
 <script>
+    import { fade } from 'svelte/transition'
     import { getLoggedUser } from '../auth/auth.service'
     import { gamesStore } from '../games/games.store'
     import { getUnconfirmedGamesByUserId } from '../games/games.store.helper'
@@ -49,7 +50,7 @@
 
     <h2 class="text-center">Unconfirmed Games</h2>
 
-    <ul class="confirm-game-ul">
+    <ul class="confirm-game-ul" transition:fade>
         {#each unConfirmedGames as game (game.id)}
             <li>
                 <GameCard {game} />
