@@ -3,10 +3,7 @@
   import { getLoggedUser } from "../auth/auth.service";
   import { gamesStore } from '../games/games.store'
   import { getUnconfirmedGamesByUserId } from '../games/games.store.helper'
-  import {
-    confirmGameByPlayerId,
-    getUnconfirmedGamesArrByUserId
-  } from "../games/games.service";
+  import { confirmGameByPlayerId } from "../games/games.service";
   import GameCard from "../games/GameCard.svelte";
 
 
@@ -30,7 +27,6 @@
     font-size: 15px;
   }
   .confirm-game-ul li {
-    margin-bottom: 20px;
     box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
     background: white;
     margin: 20px 0;
@@ -56,7 +52,7 @@
 <h2 class="text-center">Unconfirmed Games</h2>
 
 <ul class="confirm-game-ul">
-  {#each unConfirmedGames as game}
+  {#each unConfirmedGames as game (game.id)}
     <li>
       <div class="flex-row justify-content-space-around">
         <div class="unconfirmed-card-header">

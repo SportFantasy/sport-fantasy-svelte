@@ -91,7 +91,7 @@
       {#if confirmedGamesNo}
         <article class="games-wrapper">
           <h1 class="text-center">Confirmed Games</h1>
-          {#each confirmedGamesArr as game}
+          {#each confirmedGamesArr as game (game.id)}
             <GameCard {game} />
           {/each}
         </article>
@@ -100,7 +100,7 @@
       {#if unConfirmedGamesNo}
         <article class="games-wrapper">
           <h1 class="text-center">Unconfirmed Games</h1>
-          {#each unConfirmedGamesArr as game}
+          {#each unConfirmedGamesArr as game (game.id)}
             <GameCard {game} />
           {/each}
         </article>

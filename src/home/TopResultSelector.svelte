@@ -35,7 +35,7 @@
 
 <div class="game-selector-wrapper justify-content-space-around flex-row">
   <div class="w-50 justify-content-space-around flex-row">
-    {#each TOP_TYPES as topType}
+    {#each TOP_TYPES as topType (topType.slug)}
       <a
         use:link
         href={getTopTypeLink(HOME_URL_PREFIX, topType)}

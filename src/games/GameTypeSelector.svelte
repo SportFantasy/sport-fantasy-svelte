@@ -78,7 +78,7 @@
     <a use:link href={getLink()} class={getActiveButtonClass(undefined, 'all')}>
       <img src={getImageSrc(undefined, 'all')} alt="sport image" />
     </a>
-    {#each gameTypeArr as gameType}
+    {#each gameTypeArr as gameType (gameType.id)}
       <a
         use:link
         href={getLink(gameType)}
