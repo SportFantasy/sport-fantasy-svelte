@@ -106,6 +106,7 @@ const getGamesByUserId = (games, userId) => {
 
 
 
+/* TOP SCORES */
 const getSortedGamesByGameTypeId = (gameTypes, games) => {
     let result = {}
 
@@ -154,8 +155,48 @@ const getSumScoreFromGamesByUserId = (games = {}, userId) => {
     return totalScore
 }
 
-const getTopScoresPerGameTypes = (usersWithSortedGames) => {
-    //TODO
+const getScoresPerGameTypesFromUsers = (usersWithSortedGames, allGameTypes) => {
+    let result = {}
+
+    for (let userId in usersWithSortedGames) {
+        const user = usersWithSortedGames[userId]
+
+        for (let gameTypeId in user.sortedGames) {
+            const gameType = user.sortedGames[gameTypeId]
+            const extendedUser = {
+                ...user,
+                totalScore: gameType.totalScore,
+            }
+
+            result[gameTypeId] = {
+                ...allGameTypes[gameTypeId],
+                ...result[gameTypeId],
+                users: [
+                    ...(result[gameTypeId] && result[gameTypeId].users || []),
+                    extendedUser
+                ],
+            }
+        }
+    }
+
+    return result
+}
+
+const getSortedUsersPerScores = (topScores) => {
+    let result = {}
+
+    for (let gameTypeId in topScores) {
+        const gameType = topScores[gameTypeId]
+        const sortedUsers = gameType.users.sort( (a, b) => {
+            return (b.totalScore - a.totalScore)
+        })
+        result[gameTypeId] = {
+            ...gameType,
+            sortedUsers,
+        }
+    }
+
+    return result
 }
 
 export const getTopScores = () => {
@@ -171,9 +212,9 @@ export const getTopScores = () => {
         result[userId] = userWithGames
     }
 
-
-    const topScoresPerGameType = getTopScoresPerGameTypes(result)
-
-
-    return result
+    const topScoresPerGameType = getScoresPerGameTypesFromUsers(result, gameTypes)
+    const sortedTopScoresPerGameType = getSortedUsersPerScores(topScoresPerGameType)
+    return sortedTopScoresPerGameType
 }
+
+/* END TOP SCORES */

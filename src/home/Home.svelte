@@ -30,7 +30,13 @@
     <TopResultSelector selectedTopResultSlug={slug} />
 
     {#if slug}
-        <h2>{getTopResultStringFromSlug(TOP_TYPES, slug)}:</h2>
+        <h2>{getTopResultStringFromSlug(TOP_TYPES, slug)}</h2>
         <TopResult topCount={3} topResultSlug={slug} />
     {/if}
 </section>
+
+<style>
+    h2 {
+        padding-bottom: 2em;
+    }
+</style>
