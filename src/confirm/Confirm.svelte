@@ -1,5 +1,4 @@
 <script>
-    import { getShortDisplayDate } from '../util/date.helper'
     import { getLoggedUser } from '../auth/auth.service'
     import { gamesStore } from '../games/games.store'
     import { getUnconfirmedGamesByUserId } from '../games/games.store.helper'
@@ -24,16 +23,7 @@
         max-width: 30em;
     }
 
-    .unconfirmed-card-header .game-div {
-        text-transform: uppercase;
-        font-size: 35px;
-    }
-
-    .unconfirmed-card-header .date-div {
-        font-size: 15px;
-    }
-
-    .confirm-game-ul li {
+    li {
         box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
         background: white;
         margin: 20px 0;
@@ -41,7 +31,7 @@
         border-radius: 8px;
     }
 
-    .confirm-game-ul button {
+    button {
         border: none;
         outline: 0;
         display: inline-block;
@@ -62,15 +52,7 @@
     <ul class="confirm-game-ul">
         {#each unConfirmedGames as game (game.id)}
             <li>
-                <div class="flex-row justify-content-space-around">
-                    <div class="unconfirmed-card-header">
-                        <div class="game-div text-center">{game.gameType.name}</div>
-                        <div class="date-div text-center">
-                            {getShortDisplayDate(game.datePlayed)}
-                        </div>
-                    </div>
-                </div>
-                <GameCard {game}/>
+                <GameCard {game} />
                 <div class="text-center">
                     <button type="button" on:click={() => handleConfirmButtonClick(game)}>
                         Confirm game

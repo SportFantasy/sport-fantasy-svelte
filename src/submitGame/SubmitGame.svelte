@@ -3,6 +3,7 @@
 import { createNewGame } from '../common/db/games'
 import { gamesStore } from '../games/games.store'
 import { usersStore } from '../user/users.store'
+import { reloadAllDataAndGetConfirmedGamesByGameTypeId } from '../games/games.service'
 import { getUnixTimeStampFromDate } from '../util/time.helper'
 import { validate, buildHumanErrors} from '../util/validation.service'
 import validationSchema from './SubmitGame.formValidationSchema'
@@ -71,6 +72,7 @@ const handleSubmit = (event) => {
             resetForm()
             showSuccessMessage(5)
         })
+        .then(() => reloadAllDataAndGetConfirmedGamesByGameTypeId('all'))
         .catch((error) => {
             validationErrors = error.message
         })

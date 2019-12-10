@@ -27,7 +27,6 @@
         max-width: 300px;
         text-align: center;
         background-color: transparent;
-        padding-top: 20px;
         width: 120px;
         height: 250px;
     }

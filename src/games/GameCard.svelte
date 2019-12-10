@@ -1,6 +1,7 @@
 <script>
     import PlayerCard from './PlayerCard.svelte'
     import { confirmGameByPlayerId } from '../games/games.service'
+    import { getShortDisplayDate } from '../util/date.helper'
 
     export let game = {}
     export let showConfirm = false
@@ -68,9 +69,21 @@
         border-radius: 8px;
         padding-bottom: 1em;
     }
+    .game-date {
+        text-align: center;
+        padding: 1em 0 0;
+    }
+    .game-name {
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 1.5em;
+    }
 </style>
 
 <div class="score-card w-100">
+    <div class="game-date">{getShortDisplayDate(game.datePlayed)}</div>
+    <div class="game-name">{game.gameType.name}</div>
+
     <div class="flex-row justify-content-space-around">
         <PlayerCard
                 playerInfo={game.player1}
