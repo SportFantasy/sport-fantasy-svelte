@@ -56,11 +56,9 @@
         font-family: serif;
         font-style: italic;
     }
-
-    .player--winner {
-        color: #ff3e00;
-        text-align: center;
-        padding-bottom: 40px;
+    .emphasize {
+        text-transform: uppercase;
+        color: var(--color-emphasize)
     }
 
     .score-card {
@@ -86,13 +84,20 @@
 
     <div class="flex-row justify-content-space-around">
         <PlayerCard
-                playerInfo={game.player1}
-                confirmCb={handlePlayerConfirm}
-                isWinner={ getIsPlayerWinner(game.player1Id, game) }
-                isConfirmVisible={isConfirmVisible(game.isConfirmedPlayer1, game.player1Id, loggedUserId, showConfirm)}
+            playerInfo={game.player1}
+            confirmCb={(playerId) => handlePlayerConfirm(playerId, game)}
+            isWinner={ getIsPlayerWinner(game.player1Id, game) }
+            isConfirmVisible={isConfirmVisible(game.isConfirmedPlayer1, game.player1Id, loggedUserId, showConfirm)}
         />
         <div class="flex-column justify-content-space-around">
-            <div class="vs">VS</div>
+            <div class="vs">
+                {#if !game.winner}
+                    <span class="emphasize">{game.result}</span>
+                {:else}
+                    VS
+                {/if}
+            </div>
+
         </div>
         <PlayerCard
             playerInfo={game.player2}
@@ -105,11 +110,4 @@
         <div>Score</div>
         {game.player1Score} : {game.player2Score}
     </div>
-
-    {#if !game.winner}
-        <div class="player player--winner text-align-center f-s-25">
-            <div>Result</div>
-            {game.result}
-        </div>
-    {/if}
 </div>
