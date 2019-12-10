@@ -1,73 +1,82 @@
 <script>
-  import { getShortDisplayDate } from "../util/date.helper";
-  import { getLoggedUser } from "../auth/auth.service";
-  import { gamesStore } from '../games/games.store'
-  import { getUnconfirmedGamesByUserId } from '../games/games.store.helper'
-  import { confirmGameByPlayerId } from "../games/games.service";
-  import GameCard from "../games/GameCard.svelte";
+    import { getShortDisplayDate } from '../util/date.helper'
+    import { getLoggedUser } from '../auth/auth.service'
+    import { gamesStore } from '../games/games.store'
+    import { getUnconfirmedGamesByUserId } from '../games/games.store.helper'
+    import { confirmGameByPlayerId } from '../games/games.service'
+    import GameCard from '../games/GameCard.svelte'
 
 
-  const loggedUserId = getLoggedUser().uid;
+    const loggedUserId = getLoggedUser().uid
 
-  $: unConfirmedGames = Object.values(getUnconfirmedGamesByUserId($gamesStore.games, loggedUserId))
+    $: unConfirmedGames = Object.values( getUnconfirmedGamesByUserId( $gamesStore.games, loggedUserId ) )
 
-  const handleConfirmButtonClick = game => {
-    confirmGameByPlayerId(game.id, game.player1Id, game.player2Id, loggedUserId)
-      .then(console.log)
-      .catch(console.log);
-  };
+    const handleConfirmButtonClick = game => {
+        confirmGameByPlayerId( game.id, game.player1Id, game.player2Id, loggedUserId )
+                .then( console.log )
+                .catch( console.log )
+    }
 </script>
 
 <style>
-  .unconfirmed-card-header .game-div {
-    text-transform: uppercase;
-    font-size: 35px;
-  }
-  .unconfirmed-card-header .date-div {
-    font-size: 15px;
-  }
-  .confirm-game-ul li {
-    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
-    background: white;
-    margin: 20px 0;
-    padding: 20px 0;
-    border-radius: 8px;
-  }
+    .confirm-wrapper {
+        margin: auto;
+        max-width: 30em;
+    }
 
-  .confirm-game-ul button {
-    border: none;
-    outline: 0;
-    display: inline-block;
-    padding: 8px;
-    color: white;
-    background-color: var(--palette-color-1);
-    text-align: center;
-    cursor: pointer;
-    font-size: 18px;
-  }
+    .unconfirmed-card-header .game-div {
+        text-transform: uppercase;
+        font-size: 35px;
+    }
+
+    .unconfirmed-card-header .date-div {
+        font-size: 15px;
+    }
+
+    .confirm-game-ul li {
+        box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+        background: white;
+        margin: 20px 0;
+        padding: 20px 0;
+        border-radius: 8px;
+    }
+
+    .confirm-game-ul button {
+        border: none;
+        outline: 0;
+        display: inline-block;
+        padding: 8px;
+        color: white;
+        background-color: var(--palette-color-1);
+        text-align: center;
+        cursor: pointer;
+        font-size: 18px;
+    }
 </style>
 
-<h1 class="text-center">Confirm</h1>
+<div class="confirm-wrapper">
+    <h1 class="text-center">Confirm</h1>
 
-<h2 class="text-center">Unconfirmed Games</h2>
+    <h2 class="text-center">Unconfirmed Games</h2>
 
-<ul class="confirm-game-ul">
-  {#each unConfirmedGames as game (game.id)}
-    <li>
-      <div class="flex-row justify-content-space-around">
-        <div class="unconfirmed-card-header">
-          <div class="game-div text-center">{game.gameType.name}</div>
-          <div class="date-div text-center">
-            {getShortDisplayDate(game.datePlayed)}
-          </div>
-        </div>
-      </div>
-      <GameCard {game} />
-      <div class="text-center">
-        <button type="button" on:click={() => handleConfirmButtonClick(game)}>
-          Confirm game
-        </button>
-      </div>
-    </li>
-  {/each}
-</ul>
+    <ul class="confirm-game-ul">
+        {#each unConfirmedGames as game (game.id)}
+            <li>
+                <div class="flex-row justify-content-space-around">
+                    <div class="unconfirmed-card-header">
+                        <div class="game-div text-center">{game.gameType.name}</div>
+                        <div class="date-div text-center">
+                            {getShortDisplayDate(game.datePlayed)}
+                        </div>
+                    </div>
+                </div>
+                <GameCard {game}/>
+                <div class="text-center">
+                    <button type="button" on:click={() => handleConfirmButtonClick(game)}>
+                        Confirm game
+                    </button>
+                </div>
+            </li>
+        {/each}
+    </ul>
+</div>

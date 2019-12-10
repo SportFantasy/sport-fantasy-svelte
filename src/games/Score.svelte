@@ -21,6 +21,9 @@
     .message {
         margin: auto;
     }
+    .game-holder {
+        margin: 1em 0;
+    }
 </style>
 
 {#if games.length}
@@ -36,7 +39,9 @@
                 {/if}
 
                 {#each games as game (game.id)}
+                <div class="game-holder">
                     <GameCard {game}/>
+                </div>
                 {/each}
             </div>
         </div>
