@@ -13,7 +13,6 @@
     import UserWidget from './UserWidget.svelte'
     import Spinner from '../common/Spinner.svelte'
     import GameCard from '../games/GameCard.svelte'
-    import { quintOut } from 'svelte/easing';
     import { crossfade } from 'svelte/transition';
 
     export let params = {}
@@ -57,7 +56,6 @@
 
             return {
                 duration: 600,
-                easing: quintOut,
                 css: t => `
 					transform: ${transform} scale(${t});
 					opacity: ${t}
@@ -130,7 +128,7 @@
         {/if}
         <div class="flex-row justify-content-space-around flex-wrap">
             {#if confirmedGamesNo}
-                <article class="games-wrapper" transition:fade>
+                <article class="games-wrapper">
                     <h1 class="text-center">{titlePrefix}Confirmed Games</h1>
                     {#each confirmedGamesArr as game (game.id)}
                         <div
@@ -145,7 +143,7 @@
             {/if}
 
             {#if unConfirmedGamesNo}
-                <article class="games-wrapper" transition:fade>
+                <article class="games-wrapper">
                     <h1 class="text-center">{titlePrefix}Unconfirmed Games</h1>
                     {#each unConfirmedGamesArr as game (game.id)}
                         <div
