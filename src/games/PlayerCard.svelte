@@ -1,5 +1,6 @@
 <script>
     import { link } from 'svelte-spa-router'
+    import FOOTBALL_IMAGE from '../assets/football-icon.png'
 
 
     export let playerInfo = {}
@@ -85,7 +86,7 @@
 </style>
 
 <div class="card flex-column justify-content-space-around">
-    <img src="images/football-icon.png" alt="John"/>
+    <img src={FOOTBALL_IMAGE} alt="Game Type"/>
     <div class="card-user-info flex-column justify-content-space-around">
         <div class={getPlayerNameClass()} title={playerInfo.email}>{playerInfo.displayName}</div>
         <a class="user-info-button" href="/profile/{playerInfo.id}" use:link>

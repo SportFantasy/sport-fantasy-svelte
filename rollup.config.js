@@ -1,10 +1,11 @@
-import svelte from 'rollup-plugin-svelte';
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
-import livereload from 'rollup-plugin-livereload';
-import { terser } from 'rollup-plugin-terser';
+import svelte from 'rollup-plugin-svelte'
+import resolve from 'rollup-plugin-node-resolve'
+import commonjs from 'rollup-plugin-commonjs'
+import livereload from 'rollup-plugin-livereload'
+import { terser } from 'rollup-plugin-terser'
 import json from 'rollup-plugin-json'
 import scss from 'rollup-plugin-scss'
+import urlPlugin from '@rollup/plugin-url'
 
 
 const production = !process.env.ROLLUP_WATCH;
@@ -28,9 +29,16 @@ export default {
 			},
 		}),
 
-    scss({ output: 'public/build/extra.css' }),
+        urlPlugin({
+            destDir: 'public/images/',
+            publicPath: 'images/',
+            fileName: '[name].[hash][extname]',
+            limit: 1000,
+        }),
 
-    json(),
+        scss({ output: 'public/build/extra.css' }),
+
+        json(),
 
 		// If you have external dependencies installed from
 		// npm, you'll most likely need these plugins. In

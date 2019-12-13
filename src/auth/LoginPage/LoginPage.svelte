@@ -5,6 +5,7 @@
   import { extractFriendlyErrorMessage } from "../../util/messages.helper";
 
   import Spinner from "../../common/Spinner.svelte";
+  import FOOTBALL_IMAGE from '../../assets/football-icon.png'
 
   let errorMessage = "";
 
@@ -33,7 +34,7 @@
 </style>
 
 <div class="login-page">
-  <img src="images/football-icon.png" class="flex-row" />
+  <img src={FOOTBALL_IMAGE} class="flex-row" />
 
   {#if errorMessage}
     <p>{errorMessage}</p>
