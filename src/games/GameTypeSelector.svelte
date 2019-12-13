@@ -1,30 +1,12 @@
 <script>
   import { link } from "svelte-spa-router";
+  import { getGameImageUrlFromGameTypeId } from './games.helper'
 
   export let gameTypes = {};
   export let activeGameTypeId;
 
   $: gameTypeArr = Object.values(gameTypes);
-  const getImageSrc = (currentGame) => {
-    let imgSrc = "";
-    let gameName = !(currentGame && currentGame.name)
-      ? "all"
-      : currentGame.name;
-    switch (gameName) {
-      case "fifa 2019":
-        imgSrc = "images/football-icon.png";
-        break;
-      case "stoni tenis":
-        imgSrc = "images/tennis-racket.png";
-        break;
-      case "sah":
-        imgSrc = "images/chess.png";
-        break;
-      default:
-        imgSrc = "images/trophy.png";
-    }
-    return imgSrc;
-  };
+
   const getLink = currentGame => {
     let gameName = !(currentGame && currentGame.name)
       ? "all"
@@ -76,14 +58,14 @@
 <div class="game-selector-wrapper justify-content-space-around flex-row">
   <div class="w-50 justify-content-space-around flex-row">
     <a use:link href={getLink()} class={getActiveButtonClass(undefined, 'all')}>
-      <img src={getImageSrc(undefined, 'all')} alt="sport image" />
+      <img src={getGameImageUrlFromGameTypeId('all')} alt="sport image" />
     </a>
     {#each gameTypeArr as gameType (gameType.id)}
       <a
         use:link
         href={getLink(gameType)}
         class={getActiveButtonClass(gameType, activeGameTypeId)}>
-        <img src={getImageSrc(gameType, activeGameTypeId)} alt="sport image" />
+        <img src={getGameImageUrlFromGameTypeId(gameType.id)} alt="sport image" />
       </a>
     {/each}
   </div>

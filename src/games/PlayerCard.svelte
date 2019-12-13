@@ -1,6 +1,7 @@
 <script>
     import { link } from 'svelte-spa-router'
 
+
     export let playerInfo = {}
     export let isWinner = false
     export let isConfirmVisible = false
