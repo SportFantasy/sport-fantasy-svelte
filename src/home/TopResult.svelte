@@ -1,6 +1,7 @@
 <script>
     import { getTopScores } from '../games/games.service'
     import { getTopScoresLimited } from './TopResult.helper'
+    import SingleTopResult from './SingleTopResult.svelte'
 
     export let topCount = 5
     export let topResultSlug = 'top-scores'
@@ -22,16 +23,10 @@
 <section class="top-scores">
     {#each topScores as topScore (topScore.id)}
     <article class="top-result">
-        <h1>{topScore.name}</h1>
-        <ul class="top-result__users">
-            {#each topScore.users as user, index (user.id)}
-                <li class="top-result__user">
-                    <span class="top-result__position">{index + 1}.</span>
-                    <span class="top-result__username">{user.displayName} [{user.email}]</span>
-                    <span class="top-result__score">{user.totalScore}</span>
-                </li>
-            {/each}
-        </ul>
+        <SingleTopResult
+            title={topScore.name}
+            usersWithScores={topScore.users}
+        />
     </article>
     {/each}
 </section>
@@ -51,18 +46,5 @@
         padding: 0 1em 1em;
         border-radius: 0.5em;
         box-shadow: 0 2px 4px var(--color-shadow);
-    }
-    .top-result__user {
-        padding-bottom: 0.5em;
-        margin-bottom: 0.5em;
-        border-bottom: 1px solid var(--palette-color-4)
-    }
-    .top-result__position {
-        font-weight: bold;
-    }
-    .top-result__score {
-        float: right;
-        clear: right;
-        color: var(--color-emphasize);
     }
 </style>
