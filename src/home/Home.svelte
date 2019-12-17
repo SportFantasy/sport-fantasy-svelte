@@ -33,7 +33,7 @@
     {#if slug}
     <div transition:fade|local>
         <h2>{getTopResultStringFromSlug(TOP_TYPES, slug)}</h2>
-        <TopResult topCount={3} topResultSlug={slug} />
+        <TopResult topCount={4} topResultSlug={slug} />
     </div>
     {/if}
 </section>

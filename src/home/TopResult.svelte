@@ -1,26 +1,16 @@
 <script>
     import { getTopScores } from '../games/games.service'
+    import { getTopScoresLimited } from './TopResult.helper'
 
     export let topCount = 5
     export let topResultSlug = 'top-scores'
-
-    const processData = (topScoresData, limitCount) => {
-        const arr = Object.values(topScoresData)
-        const processed = arr.map( (topScore) => {
-            return {
-                name: topScore.name,
-                users: topScore.users.slice(0, limitCount),
-            }
-        })
-        return processed
-    }
 
     let topScores = []
 
     $: {
         if (topResultSlug === 'top-scores') {
             const topScoresData = getTopScores( topResultSlug )
-            topScores = processData( topScoresData, topCount )
+            topScores = getTopScoresLimited( topScoresData, topCount )
         } else {
             topScores = []
         }
