@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "ajv": "6.10.2",
-    "json-pointer": "0.6.0",
+    "json-pointer": "0.6.1",
     "lodash": "4.17.15",
     "luxon": "1.21.3",
     "sirv-cli": "0.4.5",
