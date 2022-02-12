@@ -32,7 +32,7 @@
     "svelte-testing-library": "1.6.0"
   },
   "dependencies": {
-    "ajv": "6.10.2",
+    "ajv": "6.12.3",
     "json-pointer": "0.6.0",
     "lodash": "4.17.15",
     "luxon": "1.21.3",
